@@ -1,0 +1,27 @@
+Form_info:
+- id
+- page
+- language
+- class(?)
+- text
+
+Headers:
+- id
+- page
+- language
+- class(?)
+- text
+
+Menu_items:
+- id
+- page
+- language
+- class(?)
+- text
+
+Text:
+- id
+- page
+- language
+- class
+- text
