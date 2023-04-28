@@ -1,0 +1,25 @@
+{
+    "name": "tomski/namespaces",
+    "authors": [
+        {
+            "name": "Tom Willems",
+            "role": "Developer"
+			
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": 
+    {
+        "php": ">=8.0"
+	},
+	"autoload": 
+    {
+		"psr-4": 
+        {
+            "tomski": "./"
+		}
+	},
+    "config": {
+        "optimize-autoloader": true
+    }
+}

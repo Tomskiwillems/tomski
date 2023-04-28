@@ -1,9 +1,14 @@
 <?php
 
-namespace models;
+namespace tomski\_src\data_access\datamodels;
 
-class DataModel extends BaseModel
+class DataModel extends BaseDatamodel
 {
+
+//  =============================================
+//  PUBLIC METHODS
+//  =============================================
+
     public function getData(string $table, string $page, string $language) : array|false
     {
         $query = "SELECT id, class, text FROM ? WHERE page = ? AND language = ?";
@@ -11,6 +16,8 @@ class DataModel extends BaseModel
         $result = "Nog in te vullen"; //VOEG CRUD FUNCTIONALITEIT TOE
         return $result;
     }
+
+//  =============================================
 
     public function getFormInfo(string $page, string $language) : array|false
     {
