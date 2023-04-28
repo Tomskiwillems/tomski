@@ -1,12 +1,15 @@
 <?php
 
-namespace Wiki\controllers;
-
+namespace tomski\_src\controllers;
 use Exception;
 
-class AjaxController2
+class AjaxController
 {
-    private   $request;
+    protected $request;
+
+//  =============================================
+//  PUBLIC METHODS
+//  =============================================
 
     public function handleRequest()
     {
@@ -14,22 +17,25 @@ class AjaxController2
         $this->performRequest();
     }
 
+//  =============================================
+//  PRIVATE METHODS
+//  =============================================
+
     private function getRequest(): array
     {
         $posted = ($_SERVER['REQUEST_METHOD'] === 'POST');
-        return $this->request =
-            [
-                'posted' => $posted,
-                'func' => \Wiki\src\Tools::getRequestVar('func', false, 'NOT SET')
-            ];
+        return $this->request = [   'posted' => $posted,
+                                    'func' => \tomski\_src\tools\Tools::getRequestVar('func', false)];
     }
+
+//  =============================================
 
     private function performRequest()
     {
         try
         {
             ob_start();
-            $class = "\Wiki\models\\".$this->request['func'];
+            $class = "\\tomski\_src\models\ajaxfunctions\\".$this->request['func'];
             $ajaxfunction = new $class;
             $ajaxfunction->execute();
             ob_end_flush();
