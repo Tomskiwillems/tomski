@@ -13,15 +13,15 @@ class MainController
 
     public function handleRequest()
     {
-        $this->getAction();
-        $this->performAction();
+        $this->getRequest();
+        $this->performRequest();
     }
 
 //  =============================================
 //  PRIVATE METHODS
 //  =============================================
 
-    private function getAction()
+    private function getRequest()
     {
         isset($_GET["action"])
         ? $this->action = $_GET["action"]
@@ -30,7 +30,7 @@ class MainController
 
 //  =============================================
 
-    private function performAction()
+    private function performRequest()
     {
         try
         {
