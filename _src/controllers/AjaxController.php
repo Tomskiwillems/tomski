@@ -1,9 +1,8 @@
 <?php
 
 namespace tomski\_src\controllers;
-use Exception;
 
-class AjaxController
+class AjaxController extends BaseController
 {
     protected $request;
 
@@ -11,10 +10,18 @@ class AjaxController
 //  PUBLIC METHODS
 //  =============================================
 
-    public function handleRequest()
+    public function generateResponse()
     {
         $this->getRequest();
         $this->performRequest();
+    }
+
+//  =============================================
+
+    public function generateError($e)
+    {
+        header('HTTP/1.1 500 Internal Server Error');
+        echo $e->getMessage();
     }
 
 //  =============================================
@@ -32,19 +39,8 @@ class AjaxController
 
     private function performRequest()
     {
-        try
-        {
-            ob_start();
-            $class = "\\tomski\_src\models\ajaxfunctions\\".$this->request['func'];
-            $ajaxfunction = new $class;
-            $ajaxfunction->execute();
-            ob_end_flush();
-        }
-        catch (Exception $e)
-        {
-            ob_end_clean();
-            header('HTTP/1.1 500 Internal Server Error');
-            echo $e->getMessage();
-        }
+        $class = "\\tomski\_src\models\ajaxfunctions\\".$this->request['func'];
+        $ajaxfunction = new $class;
+        $ajaxfunction->execute();
     }
 }

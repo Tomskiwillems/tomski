@@ -1,7 +1,6 @@
 <?php
 
 namespace tomski\_src\controllers;
-use Exception;
 
 class PageController
 {
@@ -12,11 +11,18 @@ class PageController
 //  PUBLIC METHODS
 //  =============================================
 
-	public function handleRequest()
+	public function generateResponse()
 	{
 		$this->getRequest();
 		$this->validateRequest();
 		$this->showResponse();
+	}
+
+//  =============================================
+
+	public function generateError($e)
+	{
+		// NOG INVULLING AAN GEVEN
 	}
 
 //  =============================================
