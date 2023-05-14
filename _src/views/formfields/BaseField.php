@@ -2,7 +2,7 @@
 
 namespace tomski\_src\views\formfields;
 
-abstract class BaseField
+abstract class BaseField implements \tomski\_src\interfaces\iFormField, \tomski\_src\interfaces\iFormValidate
 {
     protected $output = '';
     protected $fieldname;
@@ -68,9 +68,7 @@ abstract class BaseField
 
     public function getValue(): mixed
     {
-        return $this->value
-            ? $this->value
-            : $this->default;
+        return $this->value ? $this->value : $this->default;
     }
 
 //  =============================================

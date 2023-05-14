@@ -1,17 +1,18 @@
 <?php
 
-namespace tomski\_src\models\validates;;
+namespace tomski\_src\models\validates;
+
 class ValidateFormFields
 {
-    protected $fieldcollection;
+    protected $formfields;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(array $fieldcollection)
+    public function __construct(array $formfields)
     {
-        $this->fieldcollection = $fieldcollection;
+        $this->formfields = $formfields;
     }
 
 //  =============================================
@@ -19,9 +20,9 @@ class ValidateFormFields
     public function getPostresult()
     {
         $postresult = [];
-        foreach ($this->fieldcollection as $fieldobject)
+        foreach ($this->formfields as $fieldobject)
         {
-            if ($fieldobject instanceof \Wiki\formfields\BaseField)
+            if ($fieldobject instanceof \tomski\_src\views\formfields\BaseField)
             {    
                 $postresult[$fieldobject->getFieldname()] = $fieldobject->getValue();
             } 
@@ -34,9 +35,9 @@ class ValidateFormFields
     public function validateFields(): bool
     {
         $result = true;
-        foreach ($this->fieldcollection as $fieldobject)
+        foreach ($this->formfields as $fieldobject)
         {
-            if (!$fieldobject instanceof \Wiki\interfaces\iValidator || !$fieldobject->validate())
+            if (!$fieldobject instanceof \tomski\_src\interfaces\iFormValidate || !$fieldobject->validate())
             {    
                 $result = false;
             }

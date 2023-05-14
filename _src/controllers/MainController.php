@@ -7,10 +7,10 @@ class MainController extends BaseController
     protected $action;
 
 //  =============================================
-//  PUBLIC METHODS
+//  PROTECTED METHODS
 //  =============================================
 
-    public function generateResponse()
+    protected function generateResponse()
     {
         $this->getRequest();
         $this->performRequest();
@@ -18,7 +18,7 @@ class MainController extends BaseController
 
 //  =============================================
 
-    public function generateError($e)
+    protected function generateError($e)
     {
         // NOG INVULLING AAN GEVEN!!!
     }
@@ -38,8 +38,16 @@ class MainController extends BaseController
 
     private function performRequest()
     {
-        $class = "\\tomski\_src\controllers\\".$this->action."Controller";
-        $controller = new $class;
-        $controller->handleRequest();
+        $class = '\tomski\_src\controllers\\'.$this->action.'Controller';
+        if (class_exists($class))
+        {
+            $controller = new $class;
+            if ($controller instanceof \tomski\_src\interfaces\iController)
+            {
+                $controller->handleRequest();
+            }
+            // ELSE TOEVOEGEN
+        }
+        // ELSE TOEVOEGEN
     }
 }

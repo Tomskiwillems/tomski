@@ -2,16 +2,16 @@
 
 namespace tomski\_src\controllers;
 
-class PageController
+class PageController extends BaseController implements \tomski\_src\interfaces\iController
 {
 	protected $request;
 	protected $response;
 
 //  =============================================
-//  PUBLIC METHODS
+//  PROTECTED METHODS
 //  =============================================
 
-	public function generateResponse()
+	protected function generateResponse()
 	{
 		$this->getRequest();
 		$this->validateRequest();
@@ -20,7 +20,7 @@ class PageController
 
 //  =============================================
 
-	public function generateError($e)
+	protected function generateError($e)
 	{
 		// NOG INVULLING AAN GEVEN
 	}
@@ -50,6 +50,6 @@ class PageController
 
 	private function showResponse()
 	{
-		$page->show();
+
 	}	
 }

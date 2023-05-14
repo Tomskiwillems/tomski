@@ -2,15 +2,15 @@
 
 namespace tomski\_src\controllers;
 
-class AjaxController extends BaseController
+class AjaxController extends BaseController implements \tomski\_src\interfaces\iController
 {
     protected $request;
 
 //  =============================================
-//  PUBLIC METHODS
+//  PROTECTED METHODS
 //  =============================================
 
-    public function generateResponse()
+    protected function generateResponse()
     {
         $this->getRequest();
         $this->performRequest();
@@ -18,10 +18,11 @@ class AjaxController extends BaseController
 
 //  =============================================
 
-    public function generateError($e)
+    protected function generateError($e)
     {
         header('HTTP/1.1 500 Internal Server Error');
         echo $e->getMessage();
+        // Error-functie toevoegen in JS/JQuery
     }
 
 //  =============================================
@@ -40,7 +41,15 @@ class AjaxController extends BaseController
     private function performRequest()
     {
         $class = "\\tomski\_src\models\ajaxfunctions\\".$this->request['func'];
-        $ajaxfunction = new $class;
-        $ajaxfunction->execute();
+        if (class_exists($class))
+        {
+            $ajaxfunction = new $class;
+            if ($ajaxfunction instanceof \tomski\_src\interfaces\iAjaxFunction)
+            {
+                $ajaxfunction->execute();
+            }
+            // ELSE TOEVOEGEN
+        }
+        // ELSE TOEVOEGEN
     }
 }

@@ -2,7 +2,7 @@
 
 namespace tomski\_src\models\validates;
 
-class ValidateLogin extends BaseValidate
+class ValidateLogin extends BaseValidate implements \tomski\_src\interfaces\iValidate
 {
     
 //  =============================================

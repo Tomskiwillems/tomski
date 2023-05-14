@@ -6,13 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'views\\' => array($baseDir . '/_src/views'),
-    'tools\\' => array($baseDir . '/_src/tools'),
-    'tests\\' => array($baseDir . '/tests'),
-    'models\\' => array($baseDir . '/_src/models'),
-    'interfaces\\' => array($baseDir . '/_src/interfaces'),
-    'factories\\' => array($baseDir . '/_src/factories'),
-    'data_access\\' => array($baseDir . '/_src/data_access'),
-    'controllers\\' => array($baseDir . '/_src/controllers'),
-    '' => array($baseDir . '/'),
+    'tomski\\' => array($baseDir . '/'),
 );

@@ -16,7 +16,7 @@
     {
 		"psr-4": 
         {
-            "tomski": "./"
+            "tomski\\": "./"
 		}
 	},
     "config": {

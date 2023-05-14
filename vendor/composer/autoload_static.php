@@ -7,85 +7,59 @@ namespace Composer\Autoload;
 class ComposerStaticInit0cffe2b4f3e4a782e0bb5d32ad91b525
 {
     public static $prefixLengthsPsr4 = array (
-        'v' => 
-        array (
-            'views\\' => 6,
-        ),
         't' => 
         array (
-            'tools\\' => 6,
-            'tests\\' => 6,
-        ),
-        'm' => 
-        array (
-            'models\\' => 7,
-        ),
-        'i' => 
-        array (
-            'interfaces\\' => 11,
-        ),
-        'f' => 
-        array (
-            'factories\\' => 10,
-        ),
-        'd' => 
-        array (
-            'data_access\\' => 12,
-        ),
-        'c' => 
-        array (
-            'controllers\\' => 12,
+            'tomski\\' => 7,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'views\\' => 
+        'tomski\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/_src/views',
+            0 => __DIR__ . '/../..' . '/',
         ),
-        'tools\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/_src/tools',
-        ),
-        'tests\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/tests',
-        ),
-        'models\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/_src/models',
-        ),
-        'interfaces\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/_src/interfaces',
-        ),
-        'factories\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/_src/factories',
-        ),
-        'data_access\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/_src/data_access',
-        ),
-        'controllers\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/_src/controllers',
-        ),
-    );
-
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/../..' . '/',
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Config' => __DIR__ . '/../..' . '/Config.inc',
-        'controllers\\MainController' => __DIR__ . '/../..' . '/_src/controllers/MainController.php',
-        'controllers\\PageController' => __DIR__ . '/../..' . '/_src/controllers/PageController.php',
-        'data_access\\BaseModel' => __DIR__ . '/../..' . '/_src/data_access/BaseModel.php',
-        'data_access\\Crud' => __DIR__ . '/../..' . '/_src/data_access/Crud.php',
-        'data_access\\DataModel' => __DIR__ . '/../..' . '/_src/data_access/DataModel.php',
-        'tools\\Tools' => __DIR__ . '/../..' . '/_src/tools/Tools.php',
+        'tomski\\_src\\controllers\\AjaxController' => __DIR__ . '/../..' . '/_src/controllers/AjaxController.php',
+        'tomski\\_src\\controllers\\BaseController' => __DIR__ . '/../..' . '/_src/controllers/BaseController.php',
+        'tomski\\_src\\controllers\\MainController' => __DIR__ . '/../..' . '/_src/controllers/MainController.php',
+        'tomski\\_src\\controllers\\PageController' => __DIR__ . '/../..' . '/_src/controllers/PageController.php',
+        'tomski\\_src\\data_access\\Crud' => __DIR__ . '/../..' . '/_src/data_access/Crud.php',
+        'tomski\\_src\\data_access\\datamodels\\BaseDatamodel' => __DIR__ . '/../..' . '/_src/data_access/datamodels/BaseDatamodel.php',
+        'tomski\\_src\\data_access\\datamodels\\DataModel' => __DIR__ . '/../..' . '/_src/data_access/datamodels/DataModel.php',
+        'tomski\\_src\\data_access\\datamodels\\UserDatamodel' => __DIR__ . '/../..' . '/_src/data_access/datamodels/UserDatamodel.php',
+        'tomski\\_src\\factories\\FormfieldFactory' => __DIR__ . '/../..' . '/_src/factories/FormfieldFactory.php',
+        'tomski\\_src\\interfaces\\iAjaxFunction' => __DIR__ . '/../..' . '/_src/interfaces/iAjaxFunction.php',
+        'tomski\\_src\\interfaces\\iController' => __DIR__ . '/../..' . '/_src/interfaces/iController.php',
+        'tomski\\_src\\interfaces\\iElement' => __DIR__ . '/../..' . '/_src/interfaces/iElement.php',
+        'tomski\\_src\\interfaces\\iFormField' => __DIR__ . '/../..' . '/_src/interfaces/iFormField.php',
+        'tomski\\_src\\interfaces\\iFormValidate' => __DIR__ . '/../..' . '/_src/interfaces/iFormValidate.php',
+        'tomski\\_src\\interfaces\\iMultipleChoiceField' => __DIR__ . '/../..' . '/_src/interfaces/iMultipleChoiceField.php',
+        'tomski\\_src\\interfaces\\iValidate' => __DIR__ . '/../..' . '/_src/interfaces/iValidate.php',
+        'tomski\\_src\\models\\ValidateModel' => __DIR__ . '/../..' . '/_src/models/ValidateModel.php',
+        'tomski\\_src\\models\\validates\\BaseValidate' => __DIR__ . '/../..' . '/_src/models/validates/BaseValidate.php',
+        'tomski\\_src\\models\\validates\\ValidateContact' => __DIR__ . '/../..' . '/_src/models/validates/ValidateContact.php',
+        'tomski\\_src\\models\\validates\\ValidateFormFields' => __DIR__ . '/../..' . '/_src/models/validates/ValidateFormFields.php',
+        'tomski\\_src\\models\\validates\\ValidateLogin' => __DIR__ . '/../..' . '/_src/models/validates/ValidateLogin.php',
+        'tomski\\_src\\models\\validates\\ValidateRegister' => __DIR__ . '/../..' . '/_src/models/validates/ValidateRegister.php',
+        'tomski\\_src\\tools\\Tools' => __DIR__ . '/../..' . '/_src/tools/Tools.php',
+        'tomski\\_src\\views\\elements\\BaseElement' => __DIR__ . '/../..' . '/_src/views/elements/BaseElement.php',
+        'tomski\\_src\\views\\elements\\BaseListElement' => __DIR__ . '/../..' . '/_src/views/elements/BaseListElement.php',
+        'tomski\\_src\\views\\elements\\FormElement' => __DIR__ . '/../..' . '/_src/views/elements/FormElement.php',
+        'tomski\\_src\\views\\elements\\LinkListElement' => __DIR__ . '/../..' . '/_src/views/elements/LinkListElement.php',
+        'tomski\\_src\\views\\elements\\TextElement' => __DIR__ . '/../..' . '/_src/views/elements/TextElement.php',
+        'tomski\\_src\\views\\formfields\\BaseField' => __DIR__ . '/../..' . '/_src/views/formfields/BaseField.php',
+        'tomski\\_src\\views\\formfields\\BaseInputField' => __DIR__ . '/../..' . '/_src/views/formfields/BaseInputField.php',
+        'tomski\\_src\\views\\formfields\\BaseMultipleChoiceField' => __DIR__ . '/../..' . '/_src/views/formfields/BaseMultipleChoiceField.php',
+        'tomski\\_src\\views\\formfields\\CheckboxField' => __DIR__ . '/../..' . '/_src/views/formfields/CheckboxField.php',
+        'tomski\\_src\\views\\formfields\\DropdownField' => __DIR__ . '/../..' . '/_src/views/formfields/DropdownField.php',
+        'tomski\\_src\\views\\formfields\\EmailInput' => __DIR__ . '/../..' . '/_src/views/formfields/EmailInput.php',
+        'tomski\\_src\\views\\formfields\\NewPasswordInput' => __DIR__ . '/../..' . '/_src/views/formfields/NewPasswordInput.php',
+        'tomski\\_src\\views\\formfields\\PasswordInput' => __DIR__ . '/../..' . '/_src/views/formfields/PasswordInput.php',
+        'tomski\\_src\\views\\formfields\\TextInput' => __DIR__ . '/../..' . '/_src/views/formfields/TextInput.php',
+        'tomski\\_src\\views\\formfields\\TextareaInput' => __DIR__ . '/../..' . '/_src/views/formfields/TextareaInput.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -93,7 +67,6 @@ class ComposerStaticInit0cffe2b4f3e4a782e0bb5d32ad91b525
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit0cffe2b4f3e4a782e0bb5d32ad91b525::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit0cffe2b4f3e4a782e0bb5d32ad91b525::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInit0cffe2b4f3e4a782e0bb5d32ad91b525::$fallbackDirsPsr4;
             $loader->classMap = ComposerStaticInit0cffe2b4f3e4a782e0bb5d32ad91b525::$classMap;
 
         }, null, ClassLoader::class);

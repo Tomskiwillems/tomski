@@ -23,20 +23,28 @@ class ValidateModel
 		if ($this->request['posted'])
 		{
 			$formfieldfactory = new \tomski\_src\factories\FormFieldFactory();
-			$formfieldcollection = $formfieldfactory->getFieldCollection($this->request['page']);
-			$validateformfields = new ValidateFormFields($formfieldcollection);
-			$result = $validateformfields->validate();
+			$formfields = $formfieldfactory->getFormfields($this->request['page']);
+			$validateformfields = new validates\ValidateFormFields($formfields);
+			$result = $validateformfields->validateFields();
 			if ($result)
 			{
 				$postresult = $validateformfields->getPostresult();
                 $class = "\\tomski\_src\models\\validates\\Validate".$this->request['page'];
-				$validatefunction = new $class;
-                $this->response = $validatefunction->validate($postresult, $this->response);
-				// IF $this->response == false, iets doen.
+				if (class_exists($class))
+				{
+					$validatefunction = new $class;
+					if ($validatefunction instanceof \tomski\_src\interfaces\iValidate)
+					{
+						$this->response = $validatefunction->validate($postresult, $this->response);
+						// IF $this->response == false, iets doen.
+					}
+					// ELSE TOEVOEGEN
+				}
+				// ELSE TOEVOEGEN
 			}
 			else
 			{
-				$this->response['formfieldcollection'] = $formfieldcollection;
+				$this->response['formfields'] = $formfields;
 			}
 		}
 		else

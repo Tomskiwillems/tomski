@@ -2,20 +2,21 @@
 
 namespace tomski\_src\views\elements;
 
-abstract class BaseElement
+abstract class BaseElement implements \tomski\_src\interfaces\iElement
 {
     protected $left_child;
     protected $right_child;
     protected $tree_order;
-    protected $content;
+    protected $number;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(int $tree_order=0)
+    public function __construct(int $tree_order, int $number=0)
     {
         $this->tree_order = $tree_order;
+        $this->number = $number;
     }
 
 //  =============================================

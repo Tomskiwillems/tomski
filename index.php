@@ -1,5 +1,7 @@
 <?php
 
+namespace tomski;
+
 require 'vendor/autoload.php';
 require 'config.inc';
 

@@ -2,7 +2,7 @@
 
 namespace tomski\_src\views\formfields;
 
-abstract class BaseMultipleChoiceField extends BaseField
+abstract class BaseMultipleChoiceField extends BaseField implements \tomski\_src\interfaces\iMultipleChoiceField
 {
     protected $options;
     protected $field = '';
