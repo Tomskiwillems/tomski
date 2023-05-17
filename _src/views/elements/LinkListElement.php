@@ -9,8 +9,8 @@ class LinkListElement extends BaseListElement
 //  PROTECTED METHODS
 //  =============================================
 
-    protected function addItem(int $id, string $value, string $class)
+    protected function addItem(string $value, string $name)
     {
-        return '<li><a class="'.$class.'" data-value="'.$value.'" data-id="'.$id.'">'.$value.'</a></li>';
+        return '<li><a data-id="'.$value.'">'.$name.'</a></li>';
     }
 }

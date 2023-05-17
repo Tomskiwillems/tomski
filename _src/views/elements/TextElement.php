@@ -4,17 +4,29 @@ namespace tomski\_src\views\elements;
 
 class TextElement extends BaseElement
 {
-	protected $content;
+	protected $textid;
+    protected $class;
+    protected $content;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-	public function __construct(string $content, int $tree_order=0)
+	public function __construct(int $textid, string $class, int $tree_order=0)
     {
-        parent::__construct($tree_order);
-		$this->content = $content;
+        parent::__construct($class, $tree_order);
+		$this->textid = $textid;
 	}
+
+//  =============================================
+
+    public function getContent()
+    {
+        $databaseinfo = new \tomski\_src\data_access\DatabaseInfo;
+        $this->content = $databaseinfo->getTextByID($this->textid);
+        if ($this->content == false) return false;
+        return true;
+    }
 
 //  =============================================
 //  PROTECTED METHODS
@@ -22,6 +34,6 @@ class TextElement extends BaseElement
 
     protected function displayContent()
     {
-        return $this->content;
+        return '<span class="'.$this->class.'">'.$this->content.'</span>';
     }
 }

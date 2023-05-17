@@ -19,17 +19,16 @@ class ValidateLogin extends BaseValidate implements \tomski\_src\interfaces\iVal
 			{
                 $_SESSION["user_id"] = $result["id"];
                 $this->response['page'] = "Home";
-                $this->response['message'] = "You are succesfully logged in";
-                $this->response['menu_change'] = true;
+                $this->response['message'] = 3;
             }
             else
             {
-                $this->response['errormessage'] = "Password is incorrect";
+                $this->response['errormessage'] = 4;
             }
         }
         else
         {
-            $this->response['errormessage'] = "There is no user registered with that email adress";
+            $this->response['errormessage'] = 5;
         }
         return $this->response;
     }

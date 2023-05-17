@@ -4,36 +4,46 @@ namespace tomski\_src\views\elements;
 
 abstract class BaseListElement extends BaseElement
 {
+    protected string $listname;
     protected array $listitems;
-    protected string $class;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(array $listitems, string $class, int $tree_order=0)
+    public function __construct(string $listname, string $class, int $tree_order=0)
     {
-        parent::__construct($tree_order);
-		$this->listitems = $listitems;
-        $this->class = $class;
+        parent::__construct($class, $tree_order);
+		$this->listname = $listname;
 	}
 
 //  =============================================
 //  PROTECTED METHODS
 //  =============================================
 
+    protected function getContent()
+    {
+        $databaseinfo = new \tomski\_src\data_access\DatabaseInfo;
+        $this->listitems = $databaseinfo->getMenuItemsByName($this->listname);
+        if ($this->listitems == false) return false;
+        return true;
+    }
+
+//  =============================================
+
     protected function displayContent()
     {
-        $content = '<ul id="list">';
-        foreach ($this->listitems as $id => $value)
+        $this->getContent();
+        $content = '<span class="'.$this->class.'"><ul>';
+        foreach ($this->listitems as $value => $name)
         {
-            $content.= $this->addItem($id, $value, $this->class);
+            $content.= $this->addItem($value, $name);
         }
-        $content.='</ul>';
+        $content.='</ul></span>';
         return $content;
     }
 
 //  =============================================
 
-    abstract protected function addItem(int $id, string $value, string $class);
+    abstract protected function addItem(string $value, string $name);
 }

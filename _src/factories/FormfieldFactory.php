@@ -11,9 +11,10 @@ class FormfieldFactory
 
     public function getFormfields($page)
     {
-        // instantie van formdatamodel aanmaken
-        $form_info = []; // form info uit database halen
-        foreach ($form_info as $fieldname => $fieldinfo)
+        $databaseinfo = new \tomski\_src\data_access\DatabaseInfo;
+        $forminfo = $databaseinfo->getForminfoByPage($page);
+        if ($forminfo == false) return false;
+        foreach ($forminfo as $fieldname => $fieldinfo)
         {
             switch ($fieldinfo['type'])
             {

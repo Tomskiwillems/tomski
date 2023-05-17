@@ -7,16 +7,16 @@ abstract class BaseElement implements \tomski\_src\interfaces\iElement
     protected $left_child;
     protected $right_child;
     protected $tree_order;
-    protected $number;
+    protected $class;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(int $tree_order, int $number=0)
+    public function __construct(string $class, int $tree_order)
     {
+        $this->class = $class;
         $this->tree_order = $tree_order;
-        $this->number = $number;
     }
 
 //  =============================================
@@ -42,8 +42,28 @@ abstract class BaseElement implements \tomski\_src\interfaces\iElement
         {
             $output .= $this->left_child->show($direct_output);
         }
-        if ($direct_output) echo $this->displayContent();
-        else $output .= $this->displayContent();
+        if ($direct_output)
+        {
+            if ($this->getContent())
+            {
+                echo $this->displayContent();
+            }
+            else
+            {
+                // FOUT OPVANGEN
+            }
+        }
+        else
+        {
+            if ($this->getContent())
+            {
+                $output .= $this->displayContent();
+            }
+            else
+            {
+                // FOUT OPVANGEN
+            }
+        } 
         if (isset($this->right_child))
         {
             $output .= $this->right_child->show($direct_output);
@@ -65,6 +85,13 @@ abstract class BaseElement implements \tomski\_src\interfaces\iElement
     protected function getOrder()
     {
         return $this->tree_order;
+    }
+
+//  =============================================
+
+    protected function getContent()
+    {
+        return true;
     }
 
 //  =============================================

@@ -18,7 +18,7 @@ class ValidateModel
 
 	public function validateRequest()
 	{
-        $this->response = $this->response;
+        $this->response = $this->request;
         $this->response['message'] = $this->response['errormessage'] = '';
 		if ($this->request['posted'])
 		{
@@ -54,7 +54,7 @@ class ValidateModel
                 session_unset();
                 session_destroy();
                 $this->response['page'] = 'Home';
-                $this->response['message'] = "You are successfully logged out.";
+                $this->response['message'] = 2;
 			}
 		}
 		return $this->response;

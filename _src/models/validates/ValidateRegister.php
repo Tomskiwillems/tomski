@@ -18,11 +18,11 @@ class ValidateRegister extends BaseValidate implements \tomski\_src\interfaces\i
             $insert = $userdatamodel->insertNewUser($this->postresult);
             if ($insert === false) return false;
             $this->response['page'] = 'Login';
-			$this->response['message'] = "You are successfully registered.";
+			$this->response['message'] = 6;
         }
         else
         {
-            $this->response['errormessage'] = "That email adress is already registered";
+            $this->response['errormessage'] = 7;
         }
         return $this->response;
     }
