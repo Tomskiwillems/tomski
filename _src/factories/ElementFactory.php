@@ -9,23 +9,33 @@ class ElementFactory
 //  PUBLIC METHODS
 //  =============================================
 
-    public function getTextElement(string $text, string $class, int $order)
+    public function getTextElement(int $id, string $class, string $language, int $order)
     {
-        return new \tomski\_src\views\elements\TextElement($text, $class, $order);
+        return new \tomski\_src\views\elements\TextElement($id, $class, $language, $order);
     }
 
-    public function getFormElement(string $page, string $class, int $order)
+    public function getHeaderElement(int $page, string $class, string $language, int $order)
     {
-        return new \tomski\_src\views\elements\FormElement($page, $class, $order);
+        return new \tomski\_src\views\elements\HeaderElement($page, $class, $language, $order);
+    }
+
+    public function getFormElement(int $page, string $class, string $language, int $order)
+    {
+        return new \tomski\_src\views\elements\FormElement($page, $class, $language, $order);
     }
           
-    public function getLinklistElement(string $listname, string $class, int $order)
+    public function getLinklistElement(int $id, string $class, string $language, int $order)
     {
-        return new \tomski\_src\views\elements\LinklistElement($listname, $class, $order);
+        return new \tomski\_src\views\elements\LinklistElement($id, $class, $language, $order);
     }
 
-    public function getFooterElement(string $class, int $order)
+    public function getMenuListElement(int $page, string $class, string $language, int $order)
     {
-        return new \tomski\_src\views\elements\FooterElement($class, $order);
+        return new \tomski\_src\views\elements\MenuListElement($page, $class, $language, $order);
+    }
+
+    public function getFooterElement(string $class, string $language, int $order)
+    {
+        return new \tomski\_src\views\elements\FooterElement($class, $language, $order);
     }
 }

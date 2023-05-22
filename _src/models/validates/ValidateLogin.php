@@ -19,16 +19,16 @@ class ValidateLogin extends BaseValidate implements \tomski\_src\interfaces\iVal
 			{
                 $_SESSION["user_id"] = $result["id"];
                 $this->response['page'] = "Home";
-                $this->response['message'] = 3;
+                $this->response['message'] = 7;
             }
             else
             {
-                $this->response['errormessage'] = 4;
+                $this->response['errormessage'] = 8;
             }
         }
         else
         {
-            $this->response['errormessage'] = 5;
+            $this->response['errormessage'] = 9;
         }
         return $this->response;
     }

@@ -8,14 +8,16 @@ abstract class BaseElement implements \tomski\_src\interfaces\iElement
     protected $right_child;
     protected $tree_order;
     protected $class;
+    protected $language;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(string $class, int $tree_order)
+    public function __construct(string $class, string $language, int $tree_order)
     {
         $this->class = $class;
+        $this->language = $language;
         $this->tree_order = $tree_order;
     }
 

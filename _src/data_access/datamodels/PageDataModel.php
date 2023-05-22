@@ -29,7 +29,7 @@ class PageDataModel extends BaseDatamodel
 
 //  =============================================
 
-    public function getPageName(int $page, string $language) : string|false
+    public function getPageName(int $page, string $language='EN') : string|false
     {
         $query = "SELECT name_$language FROM pages WHERE id = ?";
         $params = [$page];

@@ -12,9 +12,9 @@ class FormElement extends BaseElement
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(string $page, string $class, int $tree_order=0)
+    public function __construct(string $page, string $class, string $language, int $tree_order=0)
     {
-        parent::__construct($class, $tree_order);
+        parent::__construct($class, $language, $tree_order);
         $this->page = $page;
     }
 

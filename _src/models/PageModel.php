@@ -34,13 +34,13 @@ class PageModel
 
     private function makePageContent()
     {
+        $this->databaseinfo = new \tomski\_src\data_access\datamodels\ElementDatamodel;
+        $elements = $this->databaseinfo->getElementsByPage($this->response['page']);
         $this->elementfactory = new \tomski\_src\factories\ElementFactory;
-        $this->databaseinfo = new \tomski\_src\data_access\DatabaseInfo;
-        $elements = $this->databaseinfo->getElementInfoByPage($this->response['page']);
         foreach ($elements as $element)
         {
             $function = 'get'.$element['type'].'Element';
-            $object = $this->elementfactory->$function($element['content'], $element['class'], $element['order']);
+            $object = $this->elementfactory->$function($element['content'], $element['class'], $this->response['language'], $element['tree_order']);
             if ($element['type'] == 'Form' && isset($this->response['formfields']))
             {
                 $object->setFormfields($this->response['formfields']);
@@ -53,11 +53,11 @@ class PageModel
 
     private function makeMainContent()
     {
-        $this->addElement($this->elementfactory->getLinklistElement('main', 'mainmenu', 1));
-        $this->addElement($this->elementfactory->getTextElement(8, 'header', 4));
-        $this->addElement($this->elementfactory->getFooterElement('footer', 99));
-        if ($this->response['message']) $this->addElement($this->elementfactory->getTextElement($this->response['message'], 'message', 2));
-        if ($this->response['errormessage']) $this->addElement($this->elementfactory->getTextElement($this->response['errormessage'], 'errormessage', 3));
+        $this->addElement($this->elementfactory->getMenulistElement(1, 'mainmenu', $this->response['language'], 1));
+        $this->addElement($this->elementfactory->getHeaderElement($this->response['page'], 'mainheader', $this->response['language'], 4));
+        $this->addElement($this->elementfactory->getFooterElement('footer', $this->response['language'], 99));
+        if ($this->response['message']) $this->addElement($this->elementfactory->getTextElement($this->response['message'], 'message', $this->response['language'], 2));
+        if ($this->response['errormessage']) $this->addElement($this->elementfactory->getTextElement($this->response['errormessage'], 'errormessage', $this->response['language'], 3));
         $this->page = new \tomski\_src\views\elements\HtmlDocument($this->elements);
     }
 

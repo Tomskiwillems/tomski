@@ -67,7 +67,7 @@ class Crud
 
     public function selectString(string $query, array $params=[]): string|false
     {
-        return $this->_executeAndFetch($query, $params, "fetchColumn");
+        return $this->_executeAndFetch($query, $params, "fetchColumn", 0);
     }
 
 //  =============================================
@@ -120,8 +120,8 @@ class Crud
     {
         try
         {
-            $stmt = $this->db->prepare($query);
-            return $stmt->execute($params);
+            $this->stmt = $this->db->prepare($query);
+            return $this->stmt->execute($params);
         }
         catch (PDOException $e)
         {

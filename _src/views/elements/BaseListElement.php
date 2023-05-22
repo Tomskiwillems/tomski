@@ -4,17 +4,17 @@ namespace tomski\_src\views\elements;
 
 abstract class BaseListElement extends BaseElement
 {
-    protected string $listname;
+    protected string $id;
     protected array $listitems;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(string $listname, string $class, int $tree_order=0)
+    public function __construct(int $id, string $class, string $language, int $tree_order=0)
     {
-        parent::__construct($class, $tree_order);
-		$this->listname = $listname;
+        parent::__construct($class, $language, $tree_order);
+		$this->id = $id;
 	}
 
 //  =============================================
@@ -24,7 +24,7 @@ abstract class BaseListElement extends BaseElement
     protected function getContent()
     {
         $databaseinfo = new \tomski\_src\data_access\DatabaseInfo;
-        $this->listitems = $databaseinfo->getMenuItemsByName($this->listname);
+        $this->listitems = $databaseinfo->getListItemsByID($this->id);
         if ($this->listitems == false) return false;
         return true;
     }

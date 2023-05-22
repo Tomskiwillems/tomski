@@ -29,7 +29,9 @@ class ValidateModel
 			if ($result)
 			{
 				$postresult = $validateformfields->getPostresult();
-                $class = "\\tomski\_src\models\\validates\\Validate".$this->request['page'];
+				$pagedatamodel = new \tomski\_src\data_access\datamodels\PageDatamodel;
+				$pagename = $pagedatamodel->getPageName($this->request['page']);
+                $class = "\\tomski\_src\models\\validates\\Validate".$pagename;
 				if (class_exists($class))
 				{
 					$validatefunction = new $class;
@@ -53,8 +55,8 @@ class ValidateModel
 			{
                 session_unset();
                 session_destroy();
-                $this->response['page'] = 'Home';
-                $this->response['message'] = 2;
+                $this->response['page'] = 1;
+                $this->response['message'] = 12;
 			}
 		}
 		return $this->response;
