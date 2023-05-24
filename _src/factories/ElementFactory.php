@@ -23,6 +23,11 @@ class ElementFactory
     {
         return new \tomski\_src\views\elements\FormElement($page, $class, $language, $order);
     }
+
+    public function getDropdownElement(int $id, string $class, string $language, int $order)
+    {
+        return new \tomski\_src\views\elements\DropdownElement($id, $class, $language, $order);
+    }
           
     public function getLinklistElement(int $id, string $class, string $language, int $order)
     {

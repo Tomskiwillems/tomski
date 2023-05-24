@@ -9,7 +9,7 @@ class HeaderElement extends TextElement
 //  PROTECTED METHODS
 //  =============================================
 
-    public function getContent()
+    protected function getContent()
     {
         $pagedatamodel = new \tomski\_src\data_access\datamodels\PageDatamodel;
         $parentid = $pagedatamodel->getParentID($this->id);

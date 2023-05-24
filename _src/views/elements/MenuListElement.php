@@ -19,4 +19,17 @@ class MenuListElement extends LinkListElement
         if ($this->listitems == false) return false;
         return true;
     }
+
+//  =============================================
+
+    protected function displayContent()
+    {
+        $content = '<span class="'.$this->class.'"><ul>';
+        foreach ($this->listitems as $value => $name)
+        {
+            $content .= $this->addItem($value, $name);
+        }
+        $content .= '</ul></span>';
+        return $content;
+    }
 }

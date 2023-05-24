@@ -23,7 +23,7 @@ class EmailInput extends BaseInputField
         {
             if (!$this->validateEmail())
             {
-                $this->errormessage = 'Invalid e-mail format';
+                $this->errormessage = 13;
                 $result = false;
             }
         }

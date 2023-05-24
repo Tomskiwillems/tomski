@@ -11,7 +11,7 @@ class PageDataModel extends BaseDatamodel
 
     public function getMenuItems(int $parent, string $language) : array|false
     {
-        $query = "SELECT id, name_$language FROM pages WHERE parent_id = ?";
+        $query = "SELECT id, (SELECT text_$language FROM text WHERE name = text.id) AS name FROM pages WHERE parent_id = ?";
         $params = [$parent];
         $result = $this->crud->selectPair($query, $params);
         return $result;
@@ -31,7 +31,7 @@ class PageDataModel extends BaseDatamodel
 
     public function getPageName(int $page, string $language='EN') : string|false
     {
-        $query = "SELECT name_$language FROM pages WHERE id = ?";
+        $query = "SELECT (SELECT text_$language FROM text WHERE name = text.id) AS name FROM pages WHERE id = ?";
         $params = [$page];
         $result = $this->crud->selectString($query, $params);
         return $result;

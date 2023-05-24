@@ -11,6 +11,6 @@ class LinkListElement extends BaseListElement
 
     protected function addItem(string $value, string $name)
     {
-        return '<li><a data-id="'.$value.'">'.$name.'</a></li>';
+        return '<li><a id="link" data-id="'.$value.'">'.$name.'</a></li>';
     }
 }

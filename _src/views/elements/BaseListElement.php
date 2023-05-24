@@ -33,7 +33,6 @@ abstract class BaseListElement extends BaseElement
 
     protected function displayContent()
     {
-        $this->getContent();
         $content = '<span class="'.$this->class.'"><ul>';
         foreach ($this->listitems as $value => $name)
         {

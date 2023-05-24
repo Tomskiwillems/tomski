@@ -33,7 +33,7 @@ class FormElement extends BaseElement
     {
         if (isset($this->formfields)) return true;
         $formfieldfactory = new \tomski\_src\factories\FormfieldFactory;
-        $this->formfields = $formfieldfactory->getFormfields($this->page);
+        $this->formfields = $formfieldfactory->getFormfields($this->page, $this->language);
         if ($this->formfields == false) return false;
         return true;
     }

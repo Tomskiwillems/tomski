@@ -23,7 +23,7 @@ class PasswordInput extends BaseInputField
         {
             if (!$this->validatePassword())
             {
-                $this->errormessage = 'passwords need to contain at least 8 characters with at least 1 uppercase, 1 lowercase and 1 number.';
+                $this->errormessage = 15;
                 $result = false;
             }
         }

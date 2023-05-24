@@ -5,7 +5,6 @@ namespace tomski\_src\views\elements;
 class TextElement extends BaseElement
 {
 	protected $id;
-    protected $class;
     protected $content;
 
 //  =============================================
@@ -19,17 +18,17 @@ class TextElement extends BaseElement
 	}
 
 //  =============================================
+//  PROTECTED METHODS
+//  =============================================
 
-    public function getContent()
+    protected function getContent()
     {
-        $databaseinfo = new \tomski\_src\data_access\DatabaseInfo;
-        $this->content = $databaseinfo->getTextByID($this->id);
+        $textdatamodel = new \tomski\_src\data_access\datamodels\TextDatamodel;
+        $this->content = $textdatamodel->getTextByID($this->id, $this->language);
         if ($this->content == false) return false;
         return true;
     }
 
-//  =============================================
-//  PROTECTED METHODS
 //  =============================================
 
     protected function displayContent()

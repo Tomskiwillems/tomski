@@ -23,7 +23,7 @@ class ValidateModel
 		if ($this->request['posted'])
 		{
 			$formfieldfactory = new \tomski\_src\factories\FormFieldFactory();
-			$formfields = $formfieldfactory->getFormfields($this->request['page']);
+			$formfields = $formfieldfactory->getFormfields($this->request['page'], $this->request['language']);
 			$validateformfields = new validates\ValidateFormFields($formfields);
 			$result = $validateformfields->validateFields();
 			if ($result)
