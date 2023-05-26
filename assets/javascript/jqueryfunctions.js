@@ -15,7 +15,7 @@ function pageHistory(url)
     ({
         type: 'GET',
         cache: false,
-        url: url + '&action=ajax&func=NewPage',
+        url: url + '&action=Ajax&func=NewPage',
         datatype: 'json',
         success: function (data)
         {
@@ -31,7 +31,7 @@ function pageHistory(url)
 function changePageContent()
 {
     let page = parseInt($(this).attr('data-id'));
-    let url = 'index.php?page=' + page + '&action=ajax&func=NewPage';
+    let url = 'index.php?page=' + page + '&action=Ajax&func=NewPage';
     $.ajax
     ({
         type: 'GET',
@@ -45,7 +45,7 @@ function changePageContent()
                 let element = data[i];
                 $(element.target).replaceWith(element.content);
             })
-            history.pushState({page: page}, "", url.replace('&action=ajax&func=NewPage', ''));
+            history.pushState({page: page}, "", url.replace('&action=Ajax&func=NewPage', ''));
         },
         error: function (data)
         {
@@ -63,7 +63,7 @@ function handleForm()
     ({
         type: "POST",
         cache: false,
-        url: "index.php?action=ajax&func=NewPage",
+        url: "index.php?action=Ajax&func=NewPage",
         data: formData,
         contentType: false,
         processData: false,

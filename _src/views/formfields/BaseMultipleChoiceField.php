@@ -5,7 +5,6 @@ namespace tomski\_src\views\formfields;
 abstract class BaseMultipleChoiceField extends BaseField implements \tomski\_src\interfaces\iMultipleChoiceField
 {
     protected $options;
-    protected $field = '';
 
 //  =============================================
 //  PUBLIC METHODS
@@ -29,11 +28,19 @@ abstract class BaseMultipleChoiceField extends BaseField implements \tomski\_src
 
     protected function showField(): string
     {
+        return $this->showChoices();
+    }
+
+//  =============================================
+
+    protected function showChoices(): string
+    {
+        $content = '';
         foreach ($this->options as $name => $value)
         {
-            $this->field .= $this->showChoice($name, $value);
+            $content .= $this->showChoice($name, $value);
         }
-        return $this->field;
+        return $content;
     }
 
 //  =============================================

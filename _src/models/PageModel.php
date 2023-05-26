@@ -21,10 +21,11 @@ class PageModel
 
 //  =============================================
 
-    public function makePage()
+    public function makePage(bool $fullpage)
     {
+        if ($fullpage) $this->makeMainContent();
         $this->makePageContent();
-        $this->makeMainContent();
+        if ($fullpage) $this->makeFullPage();
         return $this->page;
     }
 
@@ -32,8 +33,17 @@ class PageModel
 //  PRIVATE METHODS
 //  =============================================
 
+    private function makeMainContent()
+    {
+        $this->addElement($this->elementfactory->getMenulistElement(1, 'mainmenu', $this->response['language'], 1));
+        $this->addElement($this->elementfactory->getFooterElement('footer', $this->response['language'], 99));
+    }
+
+//  =============================================
+
     private function makePageContent()
     {
+        $this->addElement($this->elementfactory->getHeaderElement($this->response['page'], 'mainheader', $this->response['language'], 4));
         $this->databaseinfo = new \tomski\_src\data_access\datamodels\ElementDatamodel;
         $elements = $this->databaseinfo->getElementsByPage($this->response['page']);
         $this->elementfactory = new \tomski\_src\factories\ElementFactory;
@@ -47,17 +57,14 @@ class PageModel
             }
             $this->addElement($object);
         }
+        if ($this->response['message']) $this->addElement($this->elementfactory->getTextElement($this->response['message'], 'message', $this->response['language'], 2));
+        if ($this->response['errormessage']) $this->addElement($this->elementfactory->getTextElement($this->response['errormessage'], 'errormessage', $this->response['language'], 3));
     }
 
 //  =============================================
 
-    private function makeMainContent()
+    private function makeFullPage()
     {
-        $this->addElement($this->elementfactory->getMenulistElement(1, 'mainmenu', $this->response['language'], 1));
-        $this->addElement($this->elementfactory->getHeaderElement($this->response['page'], 'mainheader', $this->response['language'], 4));
-        $this->addElement($this->elementfactory->getFooterElement('footer', $this->response['language'], 99));
-        if ($this->response['message']) $this->addElement($this->elementfactory->getTextElement($this->response['message'], 'message', $this->response['language'], 2));
-        if ($this->response['errormessage']) $this->addElement($this->elementfactory->getTextElement($this->response['errormessage'], 'errormessage', $this->response['language'], 3));
         $this->page = new \tomski\_src\views\elements\HtmlDocument($this->elements);
     }
 
