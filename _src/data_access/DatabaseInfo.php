@@ -24,6 +24,9 @@ class DatabaseInfo
             case 1:
                 return ['language'=> [  1 =>    'EN',
                                         2 =>    'NL']];
+            case 2:
+                return [1 =>    'EN',
+                        2 =>    'NL'];
         }
     }
 }

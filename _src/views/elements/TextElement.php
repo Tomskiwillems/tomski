@@ -33,6 +33,6 @@ class TextElement extends BaseElement
 
     protected function displayContent()
     {
-        return '<span class="'.$this->class.'">'.$this->content.'</span>';
+        return '<div class="'.$this->class.'">'.$this->content.'</div>';
     }
 }

@@ -5,11 +5,17 @@ namespace tomski\_src\views\elements;
 class HtmlDocument
 {
     protected $elements;
+
+//  =============================================
+//  PUBLIC METHODS
+//  =============================================
     
     public function __construct(object $elements)
     {
         $this->elements = $elements;
     }
+
+//  =============================================
 
     public function show()
     {
@@ -23,17 +29,23 @@ class HtmlDocument
         $this->endDoc();
     }
 
-    // abstract protected function showPage();
+//  =============================================
+//  PROTECTED METHODS
+//  =============================================
 
     protected function beginDoc()
     {
         echo '<!DOCTYPE html><html>';
     }
 
+//  =============================================
+
     protected function beginHeader()
     {
         echo '<head>';
     }
+
+//  =============================================
     
     protected function headerContent()
     {
@@ -43,25 +55,35 @@ class HtmlDocument
         <script src="assets/javascript/jqueryfunctions.js"></script>';
     }
 
+//  =============================================
+
     protected function endHeader()
     {
         echo '</head>';
     }
+
+//  =============================================
 
     protected function beginBody()
     {
         echo '<body>';
     }
 
+//  =============================================
+
     protected function bodyContent()
     {
-        if ($this->elements) $this->elements->show(true);
+        $this->elements->show(true);
     }
+
+//  =============================================
 
     protected function endBody()
     {
         echo '</body>';
     }
+
+//  =============================================
 
     protected function endDoc()
     {

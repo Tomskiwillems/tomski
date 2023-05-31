@@ -4,6 +4,11 @@ namespace tomski\_src\views\formfields;
 
 class DropdownField extends BaseMultipleChoiceField
 {
+
+//  =============================================
+//  PROTECTED METHODS
+//  =============================================
+
     protected function showField() : string
     {
         $content = '<select>';
@@ -11,6 +16,8 @@ class DropdownField extends BaseMultipleChoiceField
         $content .= '</select>';
         return $content;
     }
+
+//  =============================================
 
     protected function showChoice($name, $value)
     {

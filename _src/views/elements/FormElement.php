@@ -54,7 +54,7 @@ class FormElement extends BaseElement
 
     private function openForm($action = '', $method = "POST")
     {
-        return '<span class="'.$this->class.'"><form id="form" action="' . $action . '" method="' . $method . '" >' . PHP_EOL . '
+        return '<div class="'.$this->class.'"><form id="form" action="' . $action . '" method="' . $method . '" >' . PHP_EOL . '
         <input type="hidden" name="page" value="' . $this->page . '" />' . PHP_EOL;
     }
 
@@ -63,7 +63,7 @@ class FormElement extends BaseElement
     private function closeForm($submit_caption = "Submit")
     {
         return '<button type="button" class="submitButton">' . $submit_caption . '</button>' . PHP_EOL
-            . '	</form></span>' . PHP_EOL;
+            . '	</form></div>' . PHP_EOL;
     }
 
 //  =============================================

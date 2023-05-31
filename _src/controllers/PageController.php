@@ -51,7 +51,7 @@ class PageController extends BaseController implements \tomski\_src\interfaces\i
 	private function showResponse()
 	{
 		$pagemodel = new \tomski\_src\models\PageModel($this->response);
-		$page = $pagemodel->makePage();
+		$page = $pagemodel->makePage(true);
 		$page->show();
 	}	
 }

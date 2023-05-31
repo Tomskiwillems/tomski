@@ -6,9 +6,9 @@ class FooterElement extends BaseElement
 {
     protected function displayContent()
     {
-        $content = '<span class="'.$this->class.'"><footer>&copy; 2023';
+        $content = '<div class="'.$this->class.'"><footer>&copy; 2023';
         if (date("Y") > 2023) $content .= ' - '.date("Y");
-        $content .= ' Tom Willems</footer></span>';
+        $content .= ' Tom Willems</footer></div>';
         return $content;
     }
 }

@@ -6,9 +6,9 @@ class PageModel
 {
     protected $response;
     protected $elementfactory;
-    protected $databaseinfo;
     protected $elements;
     protected $page;
+    protected $pagecontent;
 
 //  =============================================
 //  PUBLIC METHODS
@@ -17,6 +17,7 @@ class PageModel
     public function __construct(array $response)
     {
         $this->response = $response;
+        $this->elementfactory = new \tomski\_src\factories\ElementFactory;
     }
 
 //  =============================================
@@ -24,7 +25,7 @@ class PageModel
     public function makePage(bool $fullpage)
     {
         if ($fullpage) $this->makeMainContent();
-        $this->makePageContent();
+        $this->makePageContent($fullpage);
         if ($fullpage) $this->makeFullPage();
         return $this->page;
     }
@@ -35,18 +36,21 @@ class PageModel
 
     private function makeMainContent()
     {
-        $this->addElement($this->elementfactory->getMenulistElement(1, 'mainmenu', $this->response['language'], 1));
+        $mainmenu = $this->elementfactory->getMenuListElement(1, 'mainmenulist', $this->response['language'], 1);
+        $mainmenudropdown = $this->elementfactory->getSelectedDropdownElement(2, 'mainmenudropdown', $this->response['language'], 2);
+        $mainmenudropdown->getSelectedOption($this->response['language']);
+        $mainmenu->insert($mainmenudropdown);
+        $this->addElement($this->elementfactory->getContainerElement($mainmenu, 'mainmenu', $this->response['language'], 1));
         $this->addElement($this->elementfactory->getFooterElement('footer', $this->response['language'], 99));
     }
 
 //  =============================================
 
-    private function makePageContent()
+    private function makePageContent(bool $fullpage)
     {
-        $this->addElement($this->elementfactory->getHeaderElement($this->response['page'], 'mainheader', $this->response['language'], 4));
-        $this->databaseinfo = new \tomski\_src\data_access\datamodels\ElementDatamodel;
-        $elements = $this->databaseinfo->getElementsByPage($this->response['page']);
-        $this->elementfactory = new \tomski\_src\factories\ElementFactory;
+        $pagecontent = ($this->elementfactory->getHeaderElement($this->response['page'], 'mainheader', $this->response['language'], 4));
+        $elementdatamodel = new \tomski\_src\data_access\datamodels\ElementDatamodel;
+        $elements = $elementdatamodel->getElementsByPage($this->response['page']);
         foreach ($elements as $element)
         {
             $function = 'get'.$element['type'].'Element';
@@ -55,10 +59,13 @@ class PageModel
             {
                 $object->setFormfields($this->response['formfields']);
             }
-            $this->addElement($object);
+            $pagecontent->insert($object);
         }
-        if ($this->response['message']) $this->addElement($this->elementfactory->getTextElement($this->response['message'], 'message', $this->response['language'], 2));
-        if ($this->response['errormessage']) $this->addElement($this->elementfactory->getTextElement($this->response['errormessage'], 'errormessage', $this->response['language'], 3));
+        if ($this->response['message']) $pagecontent->insert($this->elementfactory->getTextElement($this->response['message'], 'message', $this->response['language'], 2));
+        if ($this->response['errormessage']) $pagecontent->insert($this->elementfactory->getTextElement($this->response['errormessage'], 'errormessage', $this->response['language'], 3));
+        $pagecontainer = $this->elementfactory->getContainerElement($pagecontent, 'pagecontent', $this->response['language'], 10);
+        if ($fullpage) $this->addElement($pagecontainer);
+        else $this->page = $pagecontainer;
     }
 
 //  =============================================

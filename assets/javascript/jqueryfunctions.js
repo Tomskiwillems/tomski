@@ -43,6 +43,7 @@ function changePageContent()
             $.each(data, function (i)
             {
                 let element = data[i];
+                console.log($(element.target));
                 $(element.target).replaceWith(element.content);
             })
             history.pushState({page: page}, "", url.replace('&action=Ajax&func=NewPage', ''));

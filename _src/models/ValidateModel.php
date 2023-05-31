@@ -16,6 +16,8 @@ class ValidateModel
 		$this->request = $request;
 	}
 
+//  =============================================
+
 	public function validateRequest()
 	{
         $this->response = $this->request;
