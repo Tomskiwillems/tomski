@@ -33,7 +33,7 @@ class ValidateModel
 				$postresult = $validateformfields->getPostresult();
 				$pagedatamodel = new \tomski\_src\data_access\datamodels\PageDatamodel;
 				$pagename = $pagedatamodel->getPageName($this->request['page']);
-                $class = "\\tomski\_src\models\\validates\\Validate".$pagename;
+                $class = '\\tomski\_src\models\\validates\\Validate'.$pagename;
 				if (class_exists($class))
 				{
 					$validatefunction = new $class;

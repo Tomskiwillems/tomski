@@ -4,5 +4,5 @@ namespace tomski\_src\interfaces;
 
 interface iValidate
 {
-    public function validate(): array|false;
+    public function validate(array $postresult, array $response): array|false;
 }

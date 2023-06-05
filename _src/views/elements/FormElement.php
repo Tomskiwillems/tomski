@@ -62,7 +62,7 @@ class FormElement extends BaseElement
 
     private function closeForm($submit_caption = "Submit")
     {
-        return '<button type="button" class="submitButton">' . $submit_caption . '</button>' . PHP_EOL
+        return '<button type="button" id="submit">' . $submit_caption . '</button>' . PHP_EOL
             . '	</form></div>' . PHP_EOL;
     }
 

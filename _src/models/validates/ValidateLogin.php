@@ -9,27 +9,27 @@ class ValidateLogin extends BaseValidate implements \tomski\_src\interfaces\iVal
 //  PUBLIC METHODS
 //  =============================================
 
-    public function validate(): array
+    public function validate(array $postresult, array $response): array|false
     {
         $userdatamodel = new \tomski\_src\data_access\datamodels\UserDatamodel();
-        $result = $userdatamodel->getUserLoginData($this->postresult['email']);
+        $result = $userdatamodel->getUserLoginData($postresult['email']);
         if (!$result)
         {
-            if($result["password"] == $this->postresult["password"])
+            if($result["password"] == $postresult["password"])
 			{
                 $_SESSION["user_id"] = $result["id"];
-                $this->response['page'] = "Home";
-                $this->response['message'] = 7;
+                $response['page'] = "Home";
+                $response['message'] = 7;
             }
             else
             {
-                $this->response['errormessage'] = 8;
+                $response['errormessage'] = 8;
             }
         }
         else
         {
-            $this->response['errormessage'] = 9;
+            $response['errormessage'] = 9;
         }
-        return $this->response;
+        return $response;
     }
 }

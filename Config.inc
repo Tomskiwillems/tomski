@@ -6,4 +6,5 @@ class Config
     CONST PDODATABASE = 'tomski';
     CONST PDOUSER = 'tomski-user';
     CONST PDOPASSWORD = 'Tomski123';
+    CONST EMAIL = 'Tomskiwillems@hotmail.com';
 }

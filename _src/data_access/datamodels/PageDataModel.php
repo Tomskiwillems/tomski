@@ -29,12 +29,11 @@ class PageDataModel extends BaseDatamodel
 
 //  =============================================
 
-    public function getPageName(int $page, string $language='EN') : string|false
+    public function getPageName(int $page, int $language=1) : string|false
     {
         $query = "SELECT (SELECT text_$language FROM text WHERE name = text.id) AS name FROM pages WHERE id = ?";
         $params = [$page];
         $result = $this->crud->selectString($query, $params);
         return $result;
     }
-
 }

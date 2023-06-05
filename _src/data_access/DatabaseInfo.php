@@ -30,3 +30,6 @@ class DatabaseInfo
         }
     }
 }
+
+// <img src="assets/images/languageflags/EN.png"> 
+// <img src="assets/images/languageflags/NL.png"> 

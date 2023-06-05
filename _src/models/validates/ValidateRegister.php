@@ -9,21 +9,21 @@ class ValidateRegister extends BaseValidate implements \tomski\_src\interfaces\i
 //  PUBLIC METHODS
 //  =============================================
 
-    public function validate(): array|false
+    public function validate(array $postresult, array $response): array|false
     {
         $userdatamodel = new \tomski\_src\data_access\datamodels\UserDatamodel();
-        $result = $userdatamodel->getUserEmail($this->postresult['email']);
+        $result = $userdatamodel->getUserEmail($postresult['email']);
         if (!$result)
         {
-            $insert = $userdatamodel->insertNewUser($this->postresult);
+            $insert = $userdatamodel->insertNewUser($postresult);
             if ($insert === false) return false;
-            $this->response['page'] = 'Login';
-			$this->response['message'] = 10;
+            $response['page'] = 'Login';
+			$response['message'] = 10;
         }
         else
         {
-            $this->response['errormessage'] = 11;
+            $response['errormessage'] = 11;
         }
-        return $this->response;
+        return $response;
     }
 }
