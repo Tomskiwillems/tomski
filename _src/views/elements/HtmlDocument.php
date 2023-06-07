@@ -50,9 +50,7 @@ class HtmlDocument
     protected function headerContent()
     {
         echo '<title>Tomski</title>
-        <link rel="stylesheet" href="assets/stylesheets/stylesheet.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script src="assets/javascript/jqueryfunctions.js"></script>';
+        <link rel="stylesheet" href="assets/stylesheets/stylesheet.css">';
     }
 
 //  =============================================
@@ -73,7 +71,22 @@ class HtmlDocument
 
     protected function bodyContent()
     {
+        $this->showContent();
+        $this->showScripts();
+    }
+
+//  =============================================
+
+    protected function showContent()
+    {
         $this->elements->show(true);
+    }
+
+//  =============================================
+
+    protected function showScripts()
+    {
+        echo '<script src="assets/javascript/javascript.js"></script>';
     }
 
 //  =============================================

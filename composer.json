@@ -1,6 +1,7 @@
 {
     "name": "tomski/namespaces",
-    "authors": [
+    "authors":
+    [
         {
             "name": "Tom Willems",
             "role": "Developer"
@@ -19,7 +20,8 @@
             "tomski\\": "./"
 		}
 	},
-    "config": {
+    "config":
+    {
         "optimize-autoloader": true
     }
 }
