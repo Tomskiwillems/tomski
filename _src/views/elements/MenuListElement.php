@@ -19,4 +19,11 @@ class MenuListElement extends LinkListElement
         if ($this->listitems == false) return false;
         return true;
     }
+
+//  =============================================
+
+    protected function addItem(string $value, string $name)
+    {
+        return '<li><a class="menu-item" data-id="'.$value.'">'.$name.'</a></li>';
+    }
 }

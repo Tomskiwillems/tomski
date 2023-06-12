@@ -1,32 +1,29 @@
-
-
 function addEventsToDocument()
 {
-    console.log('hallo')
-    addEventToMultipleElements(".link", "click", clickLink)
+    addEventToMultipleElements(".menu-item", "click", clickMenuItem)
     addEventToMultipleElements(".submit", "click", clickSubmit)
 }
 
 //  =============================================
 
-//window.addEventListener('load', addEventsToDocument)
-
-//  =============================================
-
 const addEventToMultipleElements = (classname, eventtrigger, functionname) =>
+// checks whether the elements have an event on it, if not, adds an event and a attribute show the element has an event
 {
-    console.log(document.querySelectorAll(classname))
     document.querySelectorAll(classname).forEach(element =>
     {
-        element.addEventListener(eventtrigger, functionname)
+        if (!element.hasAttribute('data-event'))
+        {
+            element.addEventListener(eventtrigger, functionname)
+            element.setAttribute('data-event', true)
+        }
     })
 }
 
 //  =============================================
 
-(function (fn) 
+(function (fn)
+// checks whether the document is fully loaded 
 {
-    console.log('hoi')
     if (document.readyState === "complete" || document.readyState === "interactive") 
     {
         // call on next available tick
@@ -40,7 +37,7 @@ const addEventToMultipleElements = (classname, eventtrigger, functionname) =>
 
 //  =============================================
 
-const clickLink = (e) =>
+const clickMenuItem = (e) =>
 {
     let page = e.target.getAttribute('data-id')
     let url = 'index.php?page=' + page + '&action=Ajax&func=NewPage'
@@ -51,7 +48,6 @@ const clickLink = (e) =>
 
 const clickSubmit = () =>
 {
-    console.log('hoi')
     let form = document.getElementById("form")
     let data = new FormData(form)
     let url = 'index.php?action=Ajax&func=NewPage'
@@ -64,12 +60,9 @@ const callback_success = (data) =>
 {
     for (i = 0; i < data.length; i++)
     {
-        console.log(data[i].target)
-        console.log(data[i].content)
-        console.log(document.querySelector(data[i].target))
         document.querySelector(data[i].target).outerHTML = data[i].content
-        //document.querySelector(data[i].target).replaceWith(data[i].content)
     }
+    addEventsToDocument()
 }
 
 //  =============================================
