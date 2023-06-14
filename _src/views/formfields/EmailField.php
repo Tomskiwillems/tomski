@@ -2,7 +2,7 @@
 
 namespace tomski\_src\views\formfields;
 
-class EmailInput extends BaseInputField
+class EmailField extends BaseInputField
 {
 
 //  =============================================

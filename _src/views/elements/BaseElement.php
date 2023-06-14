@@ -6,19 +6,19 @@ abstract class BaseElement implements \tomski\_src\interfaces\iElement
 {
     protected $left_child;
     protected $right_child;
-    protected $tree_order;
-    protected $class;
+    protected $elementinfo;
+    protected $response;
     protected $language;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(string $class, string $language, int $tree_order)
+    public function __construct(array $elementinfo, array $response, string $language)
     {
-        $this->class = $class;
+        $this->elementinfo = $elementinfo;
+        $this->response = $response;
         $this->language = $language;
-        $this->tree_order = $tree_order;
     }
 
 //  =============================================
@@ -79,14 +79,14 @@ abstract class BaseElement implements \tomski\_src\interfaces\iElement
 
     protected function _compareTo($element) : int
     {
-        return ( $this->tree_order <=> $element->getOrder() );
+        return ( $this->elementinfo['tree_order'] <=> $element->getOrder() );
     }
 
 //  =============================================
 
     protected function getOrder()
     {
-        return $this->tree_order;
+        return $this->elementinfo['tree_order'];
     }
 
 //  =============================================

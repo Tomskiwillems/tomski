@@ -34,7 +34,7 @@ class PageController extends BaseController implements \tomski\_src\interfaces\i
 		$posted = ($_SERVER['REQUEST_METHOD'] === 'POST');
 		$this->request = [	'posted'	=> $posted,
 							'page'  	=> \tomski\_src\tools\Tools::getRequestVar('page', $posted, 1),
-							'language'	=> \tomski\_src\tools\Tools::getRequestVar('language', $posted, 1),
+							'language'	=> \tomski\_src\tools\Tools::getRequestVar('language', $posted, 'EN'),
 							'id'		=> \tomski\_src\tools\Tools::getRequestVar('id', $posted, 0)];
 	}
 
@@ -51,7 +51,7 @@ class PageController extends BaseController implements \tomski\_src\interfaces\i
 	private function showResponse()
 	{
 		$pagemodel = new \tomski\_src\models\PageModel($this->response);
-		$page = $pagemodel->makePage(true);
+		$page = $pagemodel->makePage(true, '');
 		$page->show();
 	}	
 }

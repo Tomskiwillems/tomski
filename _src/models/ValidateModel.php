@@ -21,7 +21,7 @@ class ValidateModel
 	public function validateRequest()
 	{
         $this->response = $this->request;
-        $this->response['message'] = $this->response['errormessage'] = '';
+        //$this->response['message'] = $this->response['errormessage'] = '';
 		if ($this->request['posted'])
 		{
 			$formfieldfactory = new \tomski\_src\factories\FormFieldFactory();

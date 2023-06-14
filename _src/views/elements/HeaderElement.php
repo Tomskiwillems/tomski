@@ -12,18 +12,18 @@ class HeaderElement extends TextElement
     protected function getContent()
     {
         $pagedatamodel = new \tomski\_src\data_access\datamodels\PageDatamodel;
-        $parentid = $pagedatamodel->getParentID($this->id);
+        $parentid = $pagedatamodel->getParentID($this->response['page']);
         if ($parentid === '0')
         {
-            if ($this->class === 'mainheader')
+            if ($this->elementinfo['class'] === 'mainheader')
             {
-                $pagename = $pagedatamodel->getPageName($this->id, $this->language);
+                $pagename = $pagedatamodel->getPageName($this->response['page'], $this->language);
                 if ($pagename === false) return false;
                 $this->content = '<h1>'.$pagename.'</h1>';
             }
             else
             {
-                $menuitems = $pagedatamodel->getMenuItems($this->id, $this->language);
+                $menuitems = $pagedatamodel->getMenuItems($this->response['page'], $this->language);
                 if ($menuitems === false) return false;
                 $this->content = '<h2>'.array_shift($menuitems).'</h2>';
             }
@@ -31,7 +31,7 @@ class HeaderElement extends TextElement
         else
         {
             if ($parentid === false) return false;
-            if ($this->class === 'mainheader')
+            if ($this->elementinfo['class'] === 'mainheader')
             {
                 $pagename = $pagedatamodel->getPageName($parentid, $this->language);
                 if ($pagename === false) return false;
@@ -39,7 +39,7 @@ class HeaderElement extends TextElement
             }
             else
             {
-                $pagename = $pagedatamodel->getPageName($this->id, $this->language);
+                $pagename = $pagedatamodel->getPageName($this->response['page'], $this->language);
                 if ($pagename === false) return false;
                 $this->content = '<h2>'.$pagename.'</h2>';
             }

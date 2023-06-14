@@ -7,30 +7,45 @@ class SelectedDropdownElement extends DropdownElement
     protected $selectedoption;
 
 //  =============================================
-//  PUBLIC METHODS
+//  PROTECTED METHODS
 //  =============================================
 
-    public function getSelectedOption(string $option)
+    protected function getContent()
     {
-        $this->selectedoption = $option;
+        $optiondatamodel = new \tomski\_src\data_access\datamodels\OptionDatamodel();
+        $this->content = $optiondatamodel->getOptionsByElementId($this->elementinfo['id']);
+        if ($this->content == false) return false;
+        $this->getSelectedOption();
+        return true;
     }
 
-//  =============================================
-//  PROTECTED METHODS
 //  =============================================
 
     protected function displayContent()
     {
-        $content = '<div class="'.$this->class.'">
+        $content = '<div class="'.$this->elementinfo['class'].'">
         <div class="dropdown">
-        <span class="dropdown-bar">'.$this->content[$this->selectedoption].'</span>
+        <span class="dropdown-bar">'.$this->selectedoption.'</span>
         <div class="dropdown-content">';
-        unset($this->content[$this->selectedoption]);
         foreach ($this->content as $value => $name)
         {
             $content .= '<span value="'.$value.'">'.$name.'</span>';
         }
         $content .= '</div></div></div>';
         return $content;
+    }
+
+//  =============================================
+
+    protected function getSelectedOption()
+    {
+        foreach ($this->content as $option)
+        {
+            if ($option['selectedoption'])
+            {
+                $this->selectedoption = $option['name'];
+                unset($option);
+            }
+        }
     }
 }

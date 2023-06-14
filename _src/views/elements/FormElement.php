@@ -4,26 +4,8 @@ namespace tomski\_src\views\elements;
 
 class FormElement extends BaseElement
 {
-    protected $page;
     protected $formfields;
     protected $options;
-
-//  =============================================
-//  PUBLIC METHODS
-//  =============================================
-
-    public function __construct(string $page, string $class, string $language, int $tree_order=0)
-    {
-        parent::__construct($class, $language, $tree_order);
-        $this->page = $page;
-    }
-
-//  =============================================
-
-    public function setFormfields(array $formfields)
-    {
-        $this->formfields = $formfields;
-    }
 
 //  =============================================
 //  PROTECTED METHODS
@@ -31,9 +13,8 @@ class FormElement extends BaseElement
 
     protected function getContent()
     {
-        if (isset($this->formfields)) return true;
         $formfieldfactory = new \tomski\_src\factories\FormfieldFactory;
-        $this->formfields = $formfieldfactory->getFormfields($this->page, $this->language);
+        $this->formfields = $formfieldfactory->getFormfields($this->elementinfo['id'], $this->language);
         if ($this->formfields == false) return false;
         return true;
     }
@@ -54,8 +35,8 @@ class FormElement extends BaseElement
 
     private function openForm($action = '', $method = "POST")
     {
-        return '<div class="'.$this->class.'"><form id="form" action="' . $action . '" method="' . $method . '" >' . PHP_EOL . '
-        <input type="hidden" name="page" value="' . $this->page . '" />' . PHP_EOL;
+        return '<div class="'.$this->elementinfo['class'].'"><form id="form" action="' . $action . '" method="' . $method . '" >' . PHP_EOL . '
+        <input type="hidden" name="page" value="' . $this->response['page'] . '" />' . PHP_EOL;
     }
 
 //  =============================================

@@ -4,18 +4,7 @@ namespace tomski\_src\views\elements;
 
 abstract class BaseListElement extends BaseElement
 {
-    protected string $id;
     protected array $listitems;
-
-//  =============================================
-//  PUBLIC METHODS
-//  =============================================
-
-    public function __construct(int $id, string $class, string $language, int $tree_order=0)
-    {
-        parent::__construct($class, $language, $tree_order);
-		$this->id = $id;
-	}
 
 //  =============================================
 //  PROTECTED METHODS
@@ -24,7 +13,7 @@ abstract class BaseListElement extends BaseElement
     protected function getContent()
     {
         $databaseinfo = new \tomski\_src\data_access\DatabaseInfo;
-        $this->listitems = $databaseinfo->getListItemsByID($this->id);
+        $this->listitems = $databaseinfo->getListItemsByID($this->elementinfo['id']);
         if ($this->listitems == false) return false;
         return true;
     }
@@ -33,7 +22,7 @@ abstract class BaseListElement extends BaseElement
 
     protected function displayContent()
     {
-        $content = '<div class="'.$this->class.'"><ul>';
+        $content = '<div class="'.$this->elementinfo['class'].'"><ul>';
         foreach ($this->listitems as $value => $name)
         {
             $content.= $this->addItem($value, $name);

@@ -1,20 +1,20 @@
 function addEventsToDocument()
 {
-    addEventToMultipleElements(".menu-item", "click", clickMenuItem)
-    addEventToMultipleElements(".submit", "click", clickSubmit)
+    addEventToMultipleElements(".menu-item", "click", clickMenuItem);
+    addEventToMultipleElements(".submit", "click", clickSubmit);
 }
 
 //  =============================================
 
 const addEventToMultipleElements = (classname, eventtrigger, functionname) =>
-// checks whether the elements have an event on it, if not, adds an event and a attribute show the element has an event
+// checks whether the elements have an event on it, if not, adds an event and a attribute to show the element has an event
 {
     document.querySelectorAll(classname).forEach(element =>
     {
         if (!element.hasAttribute('data-event'))
         {
-            element.addEventListener(eventtrigger, functionname)
-            element.setAttribute('data-event', true)
+            element.addEventListener(eventtrigger, functionname);
+            element.setAttribute('data-event', true);
         }
     })
 }
@@ -39,30 +39,35 @@ const addEventToMultipleElements = (classname, eventtrigger, functionname) =>
 
 const clickMenuItem = (e) =>
 {
-    let page = e.target.getAttribute('data-id')
-    let url = 'index.php?page=' + page + '&action=Ajax&func=NewPage'
-    ajaxGet(url, 'json', callback_success, callback_fail)
+    let page = e.target.getAttribute('data-id');
+    let menu = e.target.parentNode.parentNode.parentNode.getAttribute('class');
+    let target;
+    if (menu == 'submenulist') {target = '.subpagecontent'}
+    else {target = '.pagecontent'};
+    let url = 'index.php?page=' + page + '&action=Ajax&func=NewPage&target=' + target;
+    ajaxGet(url, 'json', callback_success, callback_fail, page);
 }
 
 //  =============================================
 
 const clickSubmit = () =>
 {
-    let form = document.getElementById("form")
-    let data = new FormData(form)
-    let url = 'index.php?action=Ajax&func=NewPage'
-    ajaxPost(url, data, 'json', callback_success, callback_fail)
+    let form = document.getElementById("form");
+    let data = new FormData(form);
+    let url = 'index.php?action=Ajax&func=NewPage';
+    ajaxPost(url, data, 'json', callback_success, callback_fail, page);
 }
 
 //  =============================================
 
-const callback_success = (data) =>
+const callback_success = (data, url, page) =>
 {
     for (i = 0; i < data.length; i++)
     {
-        document.querySelector(data[i].target).outerHTML = data[i].content
+        document.querySelector(data[i].target).outerHTML = data[i].content;
     }
-    addEventsToDocument()
+    history.pushState('', '', url.replace('&action=Ajax&func=NewPage', ''));
+    addEventsToDocument();
 }
 
 //  =============================================
@@ -74,7 +79,7 @@ const callback_fail = (error) =>
 
 //  =============================================
 
-async function ajaxGet(url, responsetype, callback_succes, callback_fail)
+async function ajaxGet(url, responsetype, callback_succes, callback_fail, page)
 {
     let response = await fetch(
         url, 
@@ -98,7 +103,7 @@ async function ajaxGet(url, responsetype, callback_succes, callback_fail)
             default:
                 result = await response.text();
         }
-        callback_succes(result);
+        callback_succes(result, url, page);
     } 
     else
     {
@@ -109,7 +114,7 @@ async function ajaxGet(url, responsetype, callback_succes, callback_fail)
 
 //  =============================================
 
-async function ajaxPost(url, data, responsetype, callback_succes, callback_fail)
+async function ajaxPost(url, data, responsetype, callback_succes, callback_fail, page)
 {
     let response = await fetch(
         url, 

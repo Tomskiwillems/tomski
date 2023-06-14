@@ -2,13 +2,13 @@
 
 namespace tomski\_src\views\elements;
 
-class FooterElement extends BaseElement
+class FooterElement extends ContainerElement
 {
     protected function displayContent()
     {
-        $content = '<div class="'.$this->class.'"><footer>&copy; 2023';
-        if (date("Y") > 2023) $content .= ' - '.date("Y");
-        $content .= ' Tom Willems</footer></div>';
+        $content = '<div class="'.$this->elementinfo['class'].'"><footer>';
+        $content .= $this->elements->show(false);
+        $content .= '</footer></div>';
         return $content;
     }
 }

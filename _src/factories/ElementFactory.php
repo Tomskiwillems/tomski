@@ -4,76 +4,72 @@ namespace tomski\_src\factories;
 
 class ElementFactory
 {
+    protected $response;
+    protected $language;
+    protected $elementdatamodel;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-    public function getContainerElement(object $elements, string $class, string $language, int $order)
+    public function __construct($response, $language)
     {
-        return new \tomski\_src\views\elements\ContainerElement($elements, $class, $language, $order);
+        $this->response = $response;
+        $this->language = $language;
+        $this->elementdatamodel = new \tomski\_src\data_access\datamodels\ElementDatamodel();
     }
 
 //  =============================================
 
-    public function getDropdownElement(int $id, string $class, string $language, int $order)
+    public function getElementByClassName(string $classname)
     {
-        return new \tomski\_src\views\elements\DropdownElement($id, $class, $language, $order);
+        $elementinfo = $this->elementdatamodel->getElementByClassName($classname);
+        return $this->getSingleElement($elementinfo);
     }
 
 //  =============================================
 
-    public function getFooterElement(string $class, string $language, int $order)
+    public function getContainerElements(string $id)
     {
-        return new \tomski\_src\views\elements\FooterElement($class, $language, $order);
+        $elementinfo = $this->elementdatamodel->getContainerElements($id, $this->response['page']);
+        return $this->getMultipleElements($elementinfo);
+    }
+
+//  =============================================
+//  PROTECTED METHODS
+//  =============================================
+
+    protected function getSingleElement($elementinfo)
+    {
+        if ($elementinfo == false) return false;
+        $class = '\tomski\_src\views\elements\\'.$elementinfo['type'].'Element';
+        $element = new $class($elementinfo, $this->response, $this->language);
+        if ($element instanceof \tomski\_src\interfaces\iContainerElement)
+        {
+            $containerelements = $this->getContainerElements($elementinfo['id'], $this->response['page']);
+            if ($containerelements == false) return false;
+            $element->setContainerElements($containerelements);
+        }
+        return $element;
     }
 
 //  =============================================
 
-    public function getFormElement(int $page, string $class, string $language, int $order)
+    protected function getMultipleElements($elementinfo)
     {
-        return new \tomski\_src\views\elements\FormElement($page, $class, $language, $order);
-    }
-
-//  =============================================
-
-    public function getHeaderElement(int $page, string $class, string $language, int $order)
-    {
-        return new \tomski\_src\views\elements\HeaderElement($page, $class, $language, $order);
-    }
-
-//  =============================================
-          
-    public function getLinklistElement(int $id, string $class, string $language, int $order)
-    {
-        return new \tomski\_src\views\elements\LinklistElement($id, $class, $language, $order);
-    }
-
-//  =============================================
-
-    public function getMainMenuElement(int $page, string $class, string $language, int $order)
-    {
-        return new \tomski\_src\views\elements\MainMenuElement($page, $class, $language, $order);
-    }
-
-//  =============================================
-
-    public function getMenuListElement(int $page, string $class, string $language, int $order)
-    {
-        return new \tomski\_src\views\elements\MenuListElement($page, $class, $language, $order);
-    }
-
-//  =============================================
-
-    public function getSelectedDropdownElement(int $id, string $class, string $language, int $order)
-    {
-        return new \tomski\_src\views\elements\SelectedDropdownElement($id, $class, $language, $order);
-    }
-
-//  =============================================
-
-    public function getTextElement(int $id, string $class, string $language, int $order)
-    {
-        return new \tomski\_src\views\elements\TextElement($id, $class, $language, $order);
+        if ($elementinfo == false) return false;
+        foreach ($elementinfo as $index => $elementinfo)
+        {
+            $class = '\tomski\_src\views\elements\\'.$elementinfo['type'].'Element';
+            $element = new $class($elementinfo, $this->response, $this->language);
+            $collection[$index] = $element;
+            if ($element instanceof \tomski\_src\interfaces\iContainerElement)
+            {
+                $containerelements = $this->getContainerElements($elementinfo['id']);
+                if ($containerelements == false) return false;
+                $element->setContainerElements($containerelements);
+            }
+        }
+        return $collection;
     }
 }

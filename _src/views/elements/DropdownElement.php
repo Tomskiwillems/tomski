@@ -4,18 +4,7 @@ namespace tomski\_src\views\elements;
 
 class DropdownElement extends BaseElement
 {
-	protected $id;
     protected $content;
-
-//  =============================================
-//  PUBLIC METHODS
-//  =============================================
-
-	public function __construct(int $id, string $class, string $language, int $tree_order=0)
-    {
-        parent::__construct($class, $language, $tree_order);
-		$this->id = $id;
-	}
 
 //  =============================================
 //  PROTECTED METHODS
@@ -23,8 +12,8 @@ class DropdownElement extends BaseElement
 
     protected function getContent()
     {
-        $databaseinfo = new \tomski\_src\data_access\DatabaseInfo;
-        $this->content = $databaseinfo->getOptionsByID($this->id);
+        $optiondatamodel = new \tomski\_src\data_access\datamodels\OptionDatamodel();
+        $this->content = $optiondatamodel->getOptionsByElementId($this->elementinfo['id']);
         if ($this->content == false) return false;
         return true;
     }
@@ -34,7 +23,7 @@ class DropdownElement extends BaseElement
     protected function displayContent()
     {
         foreach ($this->content as $barname => $options)
-        $content = '<div class="'.$this->class.'">
+        $content = '<div class="'.$this->elementinfo['class'].'">
         <div class="dropdown">
         <span class="dropdown-bar">'.$barname.'</span>
         <div class="dropdown-content">';

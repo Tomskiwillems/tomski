@@ -2,7 +2,7 @@
 
 namespace tomski\_src\data_access\datamodels;
 
-class PageDataModel extends BaseDatamodel
+class PageDatamodel extends BaseDatamodel
 {
 
 //  =============================================
@@ -29,7 +29,7 @@ class PageDataModel extends BaseDatamodel
 
 //  =============================================
 
-    public function getPageName(int $page, int $language=1) : string|false
+    public function getPageName(int $page, string $language) : string|false
     {
         $query = "SELECT (SELECT text_$language FROM text WHERE name = text.id) AS name FROM pages WHERE id = ?";
         $params = [$page];

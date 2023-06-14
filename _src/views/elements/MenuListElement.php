@@ -12,10 +12,20 @@ class MenuListElement extends LinkListElement
     protected function getContent()
     {
         $pagedatamodel = new \tomski\_src\data_access\datamodels\PageDatamodel;
-        $parentid = $pagedatamodel->getParentID($this->id);
+        $parentid = $pagedatamodel->getParentID($this->response['page']);
         if ($parentid === false) return false;
-        if ($parentid === '0' && $this->class != 'mainmenulist') $this->listitems = $pagedatamodel->getMenuItems($this->id, $this->language);
-        else $this->listitems = $pagedatamodel->getMenuItems($parentid, $this->language);
+        if ($this->elementinfo['class'] == 'mainmenulist')
+        {
+            $this->listitems = $pagedatamodel->getMenuItems(0, $this->language);
+        }
+        elseif ($parentid === '0')
+        {
+            $this->listitems = $pagedatamodel->getMenuItems($this->response['page'], $this->language);
+        }
+        else
+        {
+            $this->listitems = $pagedatamodel->getMenuItems($parentid, $this->language);
+        }
         if ($this->listitems == false) return false;
         return true;
     }

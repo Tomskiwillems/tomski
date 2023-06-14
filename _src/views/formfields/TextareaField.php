@@ -2,7 +2,7 @@
 
 namespace tomski\_src\views\formfields;
 
-class TextareaInput extends BaseField
+class TextareaField extends BaseField
 {
 
 //  =============================================
