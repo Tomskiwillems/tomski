@@ -5,17 +5,15 @@ namespace tomski\_src\factories;
 class ElementFactory
 {
     protected $response;
-    protected $language;
     protected $elementdatamodel;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct($response, $language)
+    public function __construct($response)
     {
         $this->response = $response;
-        $this->language = $language;
         $this->elementdatamodel = new \tomski\_src\data_access\datamodels\ElementDatamodel();
     }
 
@@ -43,7 +41,7 @@ class ElementFactory
     {
         if ($elementinfo == false) return false;
         $class = '\tomski\_src\views\elements\\'.$elementinfo['type'].'Element';
-        $element = new $class($elementinfo, $this->response, $this->language);
+        $element = new $class($elementinfo, $this->response, $_SESSION['language']);
         if ($element instanceof \tomski\_src\interfaces\iContainerElement)
         {
             $containerelements = $this->getContainerElements($elementinfo['id'], $this->response['page']);
@@ -61,7 +59,7 @@ class ElementFactory
         foreach ($elementinfo as $index => $elementinfo)
         {
             $class = '\tomski\_src\views\elements\\'.$elementinfo['type'].'Element';
-            $element = new $class($elementinfo, $this->response, $this->language);
+            $element = new $class($elementinfo, $this->response, $_SESSION['language']);
             $collection[$index] = $element;
             if ($element instanceof \tomski\_src\interfaces\iContainerElement)
             {

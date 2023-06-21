@@ -32,7 +32,7 @@ class ValidateModel
 			{
 				$postresult = $validateformfields->getPostresult();
 				$pagedatamodel = new \tomski\_src\data_access\datamodels\PageDatamodel;
-				$pagename = $pagedatamodel->getPageName($this->request['page']);
+				$pagename = $pagedatamodel->getPageName($this->request['page'], $this->request['language']);
                 $class = '\\tomski\_src\models\\validates\\Validate'.$pagename;
 				if (class_exists($class))
 				{
@@ -53,6 +53,10 @@ class ValidateModel
 		}
 		else
 		{
+			if (isset($_GET['language']) || !isset($_SESSION['language']))
+			{
+				$_SESSION['language'] = \tomski\_src\tools\Tools::getRequestVar('language', false, 'EN');
+			}
 			if ($this->request['page'] == "Logout")
 			{
                 session_unset();

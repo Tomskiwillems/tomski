@@ -24,14 +24,13 @@ class SelectedDropdownElement extends DropdownElement
     protected function displayContent()
     {
         $content = '<div class="'.$this->elementinfo['class'].'">
-        <div class="dropdown">
-        <span class="dropdown-bar">'.$this->selectedoption.'</span>
+        <span class="dropdown-button">'.$this->selectedoption.'</span>
         <div class="dropdown-content">';
         foreach ($this->content as $value => $name)
         {
-            $content .= '<span value="'.$value.'">'.$name.'</span>';
+            $content .= '<span class="dropdown-option" value="'.$value.'">'.$name.'</span>';
         }
-        $content .= '</div></div></div>';
+        $content .= '</div></div>';
         return $content;
     }
 

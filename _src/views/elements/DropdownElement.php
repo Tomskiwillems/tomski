@@ -24,14 +24,13 @@ class DropdownElement extends BaseElement
     {
         foreach ($this->content as $barname => $options)
         $content = '<div class="'.$this->elementinfo['class'].'">
-        <div class="dropdown">
-        <span class="dropdown-bar">'.$barname.'</span>
+        <span class="dropdown-button">'.$barname.'</span>
         <div class="dropdown-content">';
         foreach ($options as $value => $name)
         {
             $content .= '<span value="'.$value.'">'.$name.'</span>';
         }
-        $content .= '</div></div></div>';
+        $content .= '</div></div>';
         return $content;
     }
 }

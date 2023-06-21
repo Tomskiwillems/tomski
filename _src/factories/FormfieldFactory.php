@@ -9,10 +9,10 @@ class FormfieldFactory
 //  PUBLIC METHODS
 //  =============================================
 
-    public function getFormfields($page, $language)
+    public function getFormfields($page)
     {
         $formdatamodel = new \tomski\_src\data_access\datamodels\FormDatamodel;
-        $forminfo = $formdatamodel->getFormfieldsByFormId($page, $language);
+        $forminfo = $formdatamodel->getFormfieldsByFormId($page, $_SESSION['language']);
         if ($forminfo == false) return false;
         foreach ($forminfo as $fieldname => $fieldinfo)
         {

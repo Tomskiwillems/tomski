@@ -16,7 +16,7 @@ class PageModel
     public function __construct(array $response)
     {
         $this->response = $response;
-        $this->elementfactory = new \tomski\_src\factories\ElementFactory($this->response, $this->response['language']);
+        $this->elementfactory = new \tomski\_src\factories\ElementFactory($this->response);
     }
 
 //  =============================================
@@ -36,15 +36,23 @@ class PageModel
         {
             if ($target == '.subpagecontent')
             {
-                $this->elements['content'] = $this->makeSubPageContent();
-                $this->elements['messages'] = $this->makeMessages();
+                $content['content'] = $this->makeSubPageContent();
+                $content['messages'] = $this->makeMessages();
+            }
+            elseif ($target == '.pagecontent')
+            {
+                $content['content'] = $this->makePageContent();
+                $content['messages'] = $this->makeMessages();
             }
             else
             {
-                $this->elements['content'] = $this->makePageContent();
-                $this->elements['messages'] = $this->makeMessages();
+                $this->addElement($this->makeMainMenu());
+                $this->addElement($this->makePageContent());
+                $this->addElement($this->makeFooter());
+                $this->addElement($this->makeMessages());
+                $content['content'] = $this->elements;
             }
-            return $this->elements;
+            return $content;
         }
     }
 
