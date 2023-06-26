@@ -2,7 +2,7 @@
 
 namespace tomski\_src\factories;
 
-class FormfieldFactory
+class FormFieldFactory
 {
 
 //  =============================================

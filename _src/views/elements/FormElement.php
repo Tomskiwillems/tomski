@@ -13,7 +13,7 @@ class FormElement extends BaseElement
 
     protected function getContent()
     {
-        $formfieldfactory = new \tomski\_src\factories\FormfieldFactory;
+        $formfieldfactory = new \tomski\_src\factories\FormFieldFactory;
         $this->formfields = $formfieldfactory->getFormfields($this->elementinfo['id'], $this->language);
         if ($this->formfields == false) return false;
         return true;

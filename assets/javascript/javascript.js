@@ -1,13 +1,3 @@
-function addEventsToDocument()
-{
-    addEventToMultipleElements(".menu-item", "click", clickMenuItem);
-    addEventToMultipleElements(".submit", "click", clickSubmit);
-    addEventToMultipleElements(".dropdown-button", "click", clickDropdownButton);
-    addEventToMultipleElements(".dropdown-option", "click", clickDropdownOption);
-}
-
-//  =============================================
-
 const addEventToMultipleElements = (classname, eventtrigger, functionname) =>
 // checks whether the elements have an event on it, if not, adds an event and a attribute to show the element has an event
 {
@@ -19,6 +9,76 @@ const addEventToMultipleElements = (classname, eventtrigger, functionname) =>
             element.setAttribute('data-event', true);
         }
     })
+}
+
+//  =============================================
+
+const addEventsToDocument = () =>
+{
+    addEventToMultipleElements(".menu-item", "click", clickMenuItem);
+    addEventToMultipleElements(".submit", "click", clickSubmit);
+    addEventToMultipleElements(".dropdown-button", "click", clickDropdownButton);
+    addEventToMultipleElements(".dropdown-option", "click", clickDropdownOption);
+}
+
+//  =============================================
+
+const setMenuStyle = () =>
+{
+    document.querySelectorAll('.menu-item').forEach(element =>
+    {
+        element.style.removeProperty('background');
+    })
+    let url = new URL(window.location.href);
+    let page = url.searchParams.get('page');
+    if (page) document.querySelector('a[data-id="' + page + '"]').style.background = 'rgba(0,0,0,0.3)';
+    switch (page)
+    {
+        case "2":
+            document.querySelector('a[data-id="7"]').style.background = 'rgba(0,0,0,0.3)';
+            break;
+        case "3":
+            document.querySelector('a[data-id="10"]').style.background = 'rgba(0,0,0,0.3)';
+            break;
+        case "4":
+            document.querySelector('a[data-id="14"]').style.background = 'rgba(0,0,0,0.3)';
+            break;
+        case "5":
+            document.querySelector('a[data-id="17"]').style.background = 'rgba(0,0,0,0.3)';
+            break;
+        case "7":
+        case "8":
+        case "9":
+            document.querySelector('a[data-id="2"]').style.background = 'rgba(0,0,0,0.3)';
+            break;
+        case "10":
+        case "11":
+        case "12":
+        case "13":
+            document.querySelector('a[data-id="3"]').style.background = 'rgba(0,0,0,0.3)';
+            break;
+        case "14":
+        case "15":
+        case "16":
+            document.querySelector('a[data-id="4"]').style.background = 'rgba(0,0,0,0.3)';
+            break;
+        case "17":
+        case "18":
+        case "19":
+        case "20":
+            document.querySelector('a[data-id="5"]').style.background = 'rgba(0,0,0,0.3)';
+            break;
+        default:
+            document.querySelector('a[data-id="1"]').style.background = 'rgba(0,0,0,0.3)';
+    }
+}
+
+//  =============================================
+
+const addJavaToDocument = () =>
+{
+    addEventsToDocument();
+    setMenuStyle();
 }
 
 //  =============================================
@@ -35,7 +95,7 @@ const addEventToMultipleElements = (classname, eventtrigger, functionname) =>
     {
         document.addEventListener("DOMContentLoaded", fn);
     }
-}(addEventsToDocument));
+}(addJavaToDocument));
 
 //  =============================================
 
@@ -90,86 +150,6 @@ const clickDropdownOption = (e) =>
 
 //  =============================================
 
-const changeMenuStyle = (e) =>
-{
-    document.querySelectorAll('.menu-item').forEach(element =>
-    {
-        element.style.removeProperty('background');
-    })
-    let url = new URL(window.location.href);
-    let page = url.searchParams.get('page');
-    switch (page)
-    {
-        case "2":
-        case "7":
-            document.querySelector('a[data-id="2"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="7"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "3":
-        case "10":
-            document.querySelector('a[data-id="3"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="10"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "4":
-        case "14":
-            document.querySelector('a[data-id="4"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="14"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "5":
-        case "17":
-            document.querySelector('a[data-id="5"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="17"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "6":
-            document.querySelector('a[data-id="6"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "8":
-            document.querySelector('a[data-id="2"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="8"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "9":
-            document.querySelector('a[data-id="2"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="9"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "11":
-            document.querySelector('a[data-id="3"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="11"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "12":
-            document.querySelector('a[data-id="3"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="12"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "13":
-            document.querySelector('a[data-id="4"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="13"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "15":
-            document.querySelector('a[data-id="4"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="15"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "16":
-            document.querySelector('a[data-id="4"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="16"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "18":
-            document.querySelector('a[data-id="5"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="18"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "19":
-            document.querySelector('a[data-id="5"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="19"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        case "20":
-            document.querySelector('a[data-id="5"]').style.background = 'rgba(0,0,0,0.3)';
-            document.querySelector('a[data-id="20"]').style.background = 'rgba(0,0,0,0.3)';
-            break;
-        default:
-            document.querySelector('a[data-id="1"]').style.background = 'rgba(0,0,0,0.3)';
-    }
-}
-
-//  =============================================
-
 const callback_success = (data, url, e) =>
 {
     for (i = 0; i < data.length; i++)
@@ -184,8 +164,7 @@ const callback_success = (data, url, e) =>
         }
     }
     history.pushState('', '', url.split('&')[0]);
-    changeMenuStyle(e);
-    addEventsToDocument();
+    addJavaToDocument();
 }
 
 //  =============================================
