@@ -4,10 +4,11 @@ namespace tomski\_src\views\elements;
 
 class FileExplorerElement extends BaseElement
 {
-    protected $directory;
     protected $folders;
     protected $files;
     protected $filename;
+    protected $filedatamodel;
+    protected $parentfolder;
 
 //  =============================================
 //  PROTECTED METHODS
@@ -15,18 +16,21 @@ class FileExplorerElement extends BaseElement
 
     protected function getContent()
     {
-        $filedatamodel = new \tomski\_src\data_access\datamodels\FileDatamodel();
+        $this->filedatamodel = new \tomski\_src\data_access\datamodels\FileDatamodel();
         if (isset($_GET['file']))
         {
-            $file = \tomski\_src\tools\Tools::getRequestVar('folder', false, 1);
-            $this->filename = $filedatamodel->getFileById($file);
+            $file = \tomski\_src\tools\Tools::getRequestVar('file', false, 1);
+            $this->filename = $this->filedatamodel->getFileById($file);
             if ($this->filename == false) return false;
+            $this->parentfolder = $this->filedatamodel->getFolderById($this->filename['folder_id']);
+            $this->addParentsToPath($this->filename['folder_id']);
         }
         else
         {
-            $this->directory = \tomski\_src\tools\Tools::getRequestVar('folder', false, 1);
-            $this->folders = $filedatamodel->getFoldersByFolder($this->directory);
-            $this->files = $filedatamodel->getFilesByFolder($this->directory);
+            $directory = \tomski\_src\tools\Tools::getRequestVar('folder', false, 1);
+            $this->parentfolder = $this->filedatamodel->getParentById($directory);
+            $this->folders = $this->filedatamodel->getFoldersByFolder($directory);
+            $this->files = $this->filedatamodel->getFilesByFolder($directory);
         }
         return true;
     }
@@ -35,30 +39,46 @@ class FileExplorerElement extends BaseElement
 
     protected function displayContent()
     {
-        if (isset($_GET['file']))
+        $content = '<div class="'.$this->elementinfo['class'].'"><ul>';
+        if ($this->parentfolder)
         {
-            //Dit plaatst het gelijk, moet op zoek naar iets dat de opmaak "bewaard".
-            $content = highlight_file($this->filename);
+            $content .= '<li class="parentfolder" data-page="'.$this->response['page'].'" data-folder="'.$this->parentfolder['id'].'">'.$this->parentfolder['name'].'</li>';
+        }
+        if (isset($this->filename['name']))
+        {
+            $content .= '</ul>';
+            $content .= highlight_file(htmlspecialchars('../'.$this->filename['name']), true);
         }
         else
         {
-            $content = '<ul>';
             if ($this->folders)
             {
                 foreach ($this->folders as $value => $folder)
                 {
-                    $content .= '<li><a href="index.php?page='.$this->response['page'].'&folder='.$value.'">'.$folder.'</a></li>';
+                    $content .= '<li class="folder" data-page="'.$this->response['page'].'" data-folder="'.$value.'">'.$folder.'</li>';
                 }
             }
             if ($this->files)
             {
                 foreach ($this->files as $value => $file)
                 {
-                    $content .= '<li><a href="index.php?page='.$this->response['page'].'&file='.$value.'">'.$file.'</a></li>';
-                }
+                    $content .= '<li class="file" data-page="'.$this->response['page'].'" data-file="'.$value.'">'.$file.'</li>';
+                }               
             }
-            $content .= '</ul>';
+            $content .= '</ul></div>';
         }
         return $content;
+    }
+
+//  =============================================
+//  PRIVATE METHODS
+//  =============================================
+
+    private function addParentsToPath(int $parent_id)
+    {
+        $parent = $this->filedatamodel->getFolderById($parent_id);
+        if ($parent == false) return false;
+        $this->filename['name'] = $parent['name'].'/'.$this->filename['name'];
+        if ($parent['parent'] > 0) $this->addParentsToPath($parent['parent']);
     }
 }

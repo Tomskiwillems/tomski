@@ -29,11 +29,31 @@ class FileDatamodel extends BaseDatamodel
 
 //  =============================================
 
-    public function getFileById(int $id): string|false
+    public function getFileById(int $id): array|false
     {
-        $query = "SELECT name FROM files WHERE id = ?";
+        $query = "SELECT id, name, folder_id FROM files WHERE id = ?";
         $params = [$id];
-        $result = $this->crud->selectString($query, $params);
+        $result = $this->crud->selectSingleRow($query, $params);
+        return $result;
+    }
+
+//  =============================================
+
+    public function getFolderById(int $id): array|false
+    {
+        $query = "SELECT id, name, parent FROM folders WHERE id = ?";
+        $params = [$id];
+        $result = $this->crud->selectSingleRow($query, $params);
+        return $result;
+    }
+    
+//  =============================================    
+
+    public function getParentById(int $id): array|false
+    {
+        $query = "SELECT id, name, parent FROM `folders` WHERE id = (SELECT parent FROM folders WHERE id = ?)";
+        $params = [$id];
+        $result = $this->crud->selectSingleRow($query, $params);
         return $result;
     }
 }

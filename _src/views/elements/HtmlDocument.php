@@ -86,7 +86,7 @@ class HtmlDocument
 
     protected function showScripts()
     {
-        echo '<script src="assets/javascript/javascript.js"></script>';
+        echo '<script src="assets/scripts/javascript.js"></script>';
     }
 
 //  =============================================

@@ -1,6 +1,7 @@
 <?php
 
 namespace tomski\_src\controllers;
+use Exception;
 
 class AjaxController extends BaseController implements \tomski\_src\interfaces\iController
 {
@@ -22,7 +23,6 @@ class AjaxController extends BaseController implements \tomski\_src\interfaces\i
     {
         header('HTTP/1.1 500 Internal Server Error');
         echo $e->getMessage();
-        // Error-functie toevoegen in JS/JQuery
     }
 
 //  =============================================
@@ -33,7 +33,7 @@ class AjaxController extends BaseController implements \tomski\_src\interfaces\i
     {
         $posted = ($_SERVER['REQUEST_METHOD'] === 'POST');
         return $this->request = [   'posted' => $posted,
-                                    'func' => \tomski\_src\tools\Tools::getRequestVar('func', false)];
+                                    'func' => \tomski\_src\tools\Tools::getRequestVar('func', $posted)];
     }
 
 //  =============================================
@@ -48,8 +48,14 @@ class AjaxController extends BaseController implements \tomski\_src\interfaces\i
             {
                 $ajaxfunction->execute();
             }
-            // ELSE TOEVOEGEN
+            else
+            {
+                throw new Exception('Requested AjaxFunction '.$class.' is not an instance of iAjaxFunction.');
+            }
         }
-        // ELSE TOEVOEGEN
+        else
+        {
+            throw new Exception('Requested AjaxFunction '.$class.' does not have an existing class.');
+        }
     }
 }

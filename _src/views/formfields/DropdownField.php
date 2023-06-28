@@ -21,6 +21,6 @@ class DropdownField extends BaseMultipleChoiceField
 
     protected function showChoice($name, $value)
     {
-        return '<option value="' . $value . '">' . $name . '</option>';
+        return '<option value="' . $value . '">' . $name . '</option>\n';
     }
 }

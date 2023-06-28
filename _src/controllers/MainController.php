@@ -1,6 +1,7 @@
 <?php
 
 namespace tomski\_src\controllers;
+use Exception;
 
 class MainController extends BaseController
 {
@@ -20,7 +21,8 @@ class MainController extends BaseController
 
     protected function generateError($e)
     {
-        // NOG INVULLING AAN GEVEN!!!
+        header('HTTP/1.1 500 Internal Server Error');
+        echo $e->getMessage();
     }
 
 //  =============================================
@@ -46,8 +48,14 @@ class MainController extends BaseController
             {
                 $controller->handleRequest();
             }
-            // ELSE TOEVOEGEN
+            else
+            {
+                throw new Exception('Requested Controller '.$class.' is not an instance of iController.');
+            }   
         }
-        // ELSE TOEVOEGEN
+        else
+        {
+            throw new Exception('Requested Controller '.$class.' is not an existing class.');
+        }
     }
 }

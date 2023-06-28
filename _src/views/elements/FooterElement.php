@@ -6,9 +6,9 @@ class FooterElement extends ContainerElement
 {
     protected function displayContent()
     {
-        $content = '<div class="'.$this->elementinfo['class'].'"><footer>';
+        $content = '<footer class="'.$this->elementinfo['class'].'">';
         $content .= $this->elements->show(false);
-        $content .= '</footer></div>';
+        $content .= '</footer>';
         return $content;
     }
 }

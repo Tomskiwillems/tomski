@@ -38,6 +38,6 @@ class CheckboxField extends BaseMultipleChoiceField
             }
         }
         return '<label class="checkbox_list"><input id="checkbox' . $name . '" type="checkbox" name="' . $this->fieldname . '[]"
-            value="' . $name . '"' . $this->checked . '>' . $value . '</label>';
+            value="' . $name . '"' . $this->checked . '>' . $value . '</label>\n';
     }
 }

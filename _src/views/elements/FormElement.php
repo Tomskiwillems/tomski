@@ -36,7 +36,8 @@ class FormElement extends BaseElement
     private function openForm($action = '', $method = "POST")
     {
         return '<div class="'.$this->elementinfo['class'].'"><form id="form" action="' . $action . '" method="' . $method . '" >' . PHP_EOL . '
-        <input type="hidden" name="page" value="' . $this->response['page'] . '" />' . PHP_EOL;
+        <input type="hidden" name="page" value="' . $this->response['page'] . '" />' . PHP_EOL . '
+        <input type="hidden" name="formid" value="' . $this->elementinfo['id'] . '" />' . PHP_EOL;
     }
 
 //  =============================================

@@ -22,7 +22,8 @@ class PageController extends BaseController implements \tomski\_src\interfaces\i
 
 	protected function generateError($e)
 	{
-		echo $e;
+		header('HTTP/1.1 500 Internal Server Error');
+        echo $e->getMessage();
 	}
 
 //  =============================================

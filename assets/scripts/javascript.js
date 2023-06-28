@@ -19,6 +19,9 @@ const addEventsToDocument = () =>
     addEventToMultipleElements(".submit", "click", clickSubmit);
     addEventToMultipleElements(".dropdown-button", "click", clickDropdownButton);
     addEventToMultipleElements(".dropdown-option", "click", clickDropdownOption);
+    addEventToMultipleElements(".parentfolder", "click", clickFolder);
+    addEventToMultipleElements(".folder", "click", clickFolder);
+    addEventToMultipleElements(".file", "click", clickFile);
 }
 
 //  =============================================
@@ -69,7 +72,7 @@ const setMenuStyle = () =>
             document.querySelector('a[data-id="5"]').style.background = 'rgba(0,0,0,0.3)';
             break;
         default:
-            document.querySelector('a[data-id="1"]').style.background = 'rgba(0,0,0,0.3)';
+            if (page == null) document.querySelector('a[data-id="1"]').style.background = 'rgba(0,0,0,0.3)';
     }
 }
 
@@ -117,7 +120,8 @@ const clickSubmit = (e) =>
 {
     let form = document.getElementById("form");
     let data = new FormData(form);
-    let url = 'index.php?action=Ajax&func=NewPage';
+    let page = data.get('page');
+    let url = 'index.php?page=' + page + 'action=Ajax&func=NewPage';
     ajaxPost(url, data, 'json', callback_success, callback_fail, e);
 }
 
@@ -125,15 +129,17 @@ const clickSubmit = (e) =>
 
 const clickDropdownButton = (e) =>
 {
-    if (e.target.nextElementSibling.style.display === "block")
+    let dropdownbutton = e.target.closest('.dropdown-button');
+    let dropdowncontent = dropdownbutton.nextElementSibling;
+    if (dropdowncontent.style.display === "block")
     {
-        e.target.nextElementSibling.style.display = "none";
-        e.target.style.removeProperty('background');
+        dropdowncontent.style.display = "none";
+        dropdownbutton.style.removeProperty('background');
     }
     else
     {
-        e.target.nextElementSibling.style.display = "block";
-        e.target.style.background = 'rgba(0,0,0,0.3)';
+        dropdowncontent.style.display = "block";
+        dropdownbutton.style.background = 'rgba(0,0,0,0.3)';
         addEventsToDocument();
     }
 }
@@ -143,8 +149,28 @@ const clickDropdownButton = (e) =>
 const clickDropdownOption = (e) =>
 {
     let href = window.location.href;
-    let language = e.target.getAttribute('value');
+    let language = e.target.closest('.dropdown-option').getAttribute('value');
     let url = href + '&action=Ajax&func=NewPage&language=' + language;
+    ajaxGet(url, 'json', callback_success, callback_fail, e);
+}
+
+//  =============================================
+
+const clickFolder = (e) =>
+{
+    let folder = e.target.getAttribute('data-folder');
+    let page = e.target.getAttribute('data-page');
+    let url = 'index.php?page=' + page + '&folder=' + folder + '&action=Ajax&func=NewPage&target=.subpagecontent';
+    ajaxGet(url, 'json', callback_success, callback_fail, e);
+}
+
+//  =============================================
+
+const clickFile = (e) =>
+{
+    let file = e.target.getAttribute('data-file');
+    let page = e.target.getAttribute('data-page');
+    let url = 'index.php?page=' + page + '&file=' + file + '&action=Ajax&func=NewPage&target=.subpagecontent';
     ajaxGet(url, 'json', callback_success, callback_fail, e);
 }
 
@@ -163,7 +189,7 @@ const callback_success = (data, url, e) =>
             document.querySelector(data[i].target).outerHTML = data[i].content;
         }
     }
-    history.pushState('', '', url.split('&')[0]);
+    history.pushState('', '', url.split('&action')[0]);
     addJavaToDocument();
 }
 

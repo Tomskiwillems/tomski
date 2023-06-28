@@ -1,6 +1,7 @@
 <?php
 
 namespace tomski\_src\models;
+use Exception;
 
 class ValidateModel
 {
@@ -21,18 +22,19 @@ class ValidateModel
 	public function validateRequest()
 	{
         $this->response = $this->request;
-        //$this->response['message'] = $this->response['errormessage'] = '';
 		if ($this->request['posted'])
 		{
+			$formid = \tomski\_src\tools\Tools::getRequestVar('formid', true, 0);
 			$formfieldfactory = new \tomski\_src\factories\FormFieldFactory();
-			$formfields = $formfieldfactory->getFormfields($this->request['page'], $this->request['language']);
+			$formfields = $formfieldfactory->getFormfields($formid);
+			//if ($formfields == false) throw new Exception('Requested FormFields could not be fetched from the database.');
 			$validateformfields = new validates\ValidateFormFields($formfields);
 			$result = $validateformfields->validateFields();
 			if ($result)
 			{
 				$postresult = $validateformfields->getPostresult();
 				$pagedatamodel = new \tomski\_src\data_access\datamodels\PageDatamodel;
-				$pagename = $pagedatamodel->getPageName($this->request['page'], $this->request['language']);
+				$pagename = $pagedatamodel->getPageName($this->request['page'], $_SESSION['language']);
                 $class = '\\tomski\_src\models\\validates\\Validate'.$pagename;
 				if (class_exists($class))
 				{
@@ -40,11 +42,17 @@ class ValidateModel
 					if ($validatefunction instanceof \tomski\_src\interfaces\iValidate)
 					{
 						$this->response = $validatefunction->validate($postresult, $this->response);
-						// IF $this->response == false, iets doen.
+						if ($this->response == false) throw new Exception('The request could not be properly validated.');
 					}
-					// ELSE TOEVOEGEN
+					else
+					{
+						throw new Exception('Requested ValidateFunction '.$class.' is not an instance of iValidate.');
+					}
 				}
-				// ELSE TOEVOEGEN
+				else
+				{
+					throw new Exception('Requested ValidateFunction '.$class.' is not an existing class.');
+				}
 			}
 			else
 			{
@@ -55,7 +63,13 @@ class ValidateModel
 		{
 			if (isset($_GET['language']) || !isset($_SESSION['language']))
 			{
-				$_SESSION['language'] = \tomski\_src\tools\Tools::getRequestVar('language', false, 'EN');
+				$language = \tomski\_src\tools\Tools::getRequestVar('language', false, 'EN');
+				$optiondatamodel = new \tomski\_src\data_access\datamodels\OptionDatamodel();
+        		$language_options = $optiondatamodel->getLanguageOptions();
+				foreach ($language_options as $language_code => $language_option)
+				{
+					if ($language == $language_code) $_SESSION['language'] = $language;
+				}
 			}
 			if ($this->request['page'] == "Logout")
 			{

@@ -11,9 +11,10 @@ class ValidateContact extends BaseValidate implements \tomski\_src\interfaces\iV
 
     public function validate(array $postresult, array $response): array|false
     {
-        mail(\Config::EMAIL, 'Contactmessage from '.$postresult['name'], $postresult['message'], 'From: '.$postresult['email']);
+        //mail(\Config::EMAIL, 'Contactmessage from '.$postresult['name'], $postresult['message'], 'From: '.$postresult['email']);
         $response['page'] = 1;
-        $response['message'] = 41;
+        //$response['message'] = 41;
+        $response['message'] = $postresult['name'] . $postresult['email'] . $postresult['message'];
         return $response;
     }
 }

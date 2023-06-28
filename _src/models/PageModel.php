@@ -25,6 +25,7 @@ class PageModel
     {
         if ($fullpage)
         {
+            $this->addElement($this->makeHeader());
             $this->addElement($this->makeMainMenu());
             $this->addElement($this->makePageContent());
             $this->addElement($this->makeFooter());
@@ -46,6 +47,7 @@ class PageModel
             }
             else
             {
+                $this->addElement($this->makeHeader());
                 $this->addElement($this->makeMainMenu());
                 $this->addElement($this->makePageContent());
                 $this->addElement($this->makeFooter());
@@ -58,6 +60,13 @@ class PageModel
 
 //  =============================================
 //  PRIVATE METHODS
+//  =============================================
+
+    private function makeHeader()
+    {
+        return $this->elementfactory->getElementByClassName('header');
+    }
+
 //  =============================================
 
     private function makeMainMenu()
