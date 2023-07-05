@@ -22,6 +22,7 @@ const addEventsToDocument = () =>
     addEventToMultipleElements(".parentfolder", "click", clickFolder);
     addEventToMultipleElements(".folder", "click", clickFolder);
     addEventToMultipleElements(".file", "click", clickFile);
+    addEventToMultipleElements("textarea", "input", textareaAdjust)
 }
 
 //  =============================================
@@ -121,7 +122,7 @@ const clickSubmit = (e) =>
     let form = document.getElementById("form");
     let data = new FormData(form);
     let page = data.get('page');
-    let url = 'index.php?page=' + page + 'action=Ajax&func=NewPage';
+    let url = 'index.php?page=' + page + '&action=Ajax&func=NewPage&target=body';
     ajaxPost(url, data, 'json', callback_success, callback_fail, e);
 }
 
@@ -172,6 +173,21 @@ const clickFile = (e) =>
     let page = e.target.getAttribute('data-page');
     let url = 'index.php?page=' + page + '&file=' + file + '&action=Ajax&func=NewPage&target=.subpagecontent';
     ajaxGet(url, 'json', callback_success, callback_fail, e);
+}
+
+//  =============================================
+
+const textareaAdjust = (e) =>
+{
+    e.target.style.height = "0px";
+    if (65 > e.target.scrollHeight)
+    {
+        e.target.style.height = "65px";
+    }
+    else
+    {
+        e.target.style.height = e.target.scrollHeight + "px";
+    }
 }
 
 //  =============================================
@@ -240,7 +256,7 @@ async function ajaxGet(url, responsetype, callback_succes, callback_fail, e)
 async function ajaxPost(url, data, responsetype, callback_succes, callback_fail, e)
 {
     let response = await fetch(
-        url, 
+        url,
         {
             method: 'POST',
             body: data
@@ -248,7 +264,8 @@ async function ajaxPost(url, data, responsetype, callback_succes, callback_fail,
     );
     if (response.ok) // if HTTP-status is 200-299
     { 
-        let result = '';   
+        let result = '';
+        
         switch (responsetype)
         {
             case 'json' :    
@@ -261,7 +278,7 @@ async function ajaxPost(url, data, responsetype, callback_succes, callback_fail,
                 break;
             default:
                 result = await response.text();
-        }        
+        }   
         callback_succes(result, url, e);
     } 
     else
@@ -269,3 +286,4 @@ async function ajaxPost(url, data, responsetype, callback_succes, callback_fail,
         callback_fail(response.statusText);
     }
 }
+

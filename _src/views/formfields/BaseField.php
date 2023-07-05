@@ -52,7 +52,7 @@ abstract class BaseField implements \tomski\_src\interfaces\iFormField, \tomski\
         else
         {
             if(is_string($this->value)) $this->value = trim($this->value);
-            if (empty($this->value) && $this->fieldinfo['optional'] === false)
+            if (empty($this->value) && $this->fieldinfo['optional'] == false)
             {
                 $this->errormessage = $this->fieldname . ' is empty.';
             }
@@ -98,7 +98,7 @@ abstract class BaseField implements \tomski\_src\interfaces\iFormField, \tomski\
 
     protected function showError(): string
     {
-        return '<span class="error">* ' . $this->errormessage . '</span><br/>' . PHP_EOL;
+        return '<span class="formfielderror">*' . $this->errormessage . '</span><br/>' . PHP_EOL;
     }
 
 //  =============================================

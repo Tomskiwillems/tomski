@@ -32,8 +32,7 @@ class AjaxController extends BaseController implements \tomski\_src\interfaces\i
     private function getRequest(): array
     {
         $posted = ($_SERVER['REQUEST_METHOD'] === 'POST');
-        return $this->request = [   'posted' => $posted,
-                                    'func' => \tomski\_src\tools\Tools::getRequestVar('func', $posted)];
+        return $this->request = ['func' => \tomski\_src\tools\Tools::getRequestVar('func', false)];
     }
 
 //  =============================================
