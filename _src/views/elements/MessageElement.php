@@ -35,7 +35,7 @@ class MessageElement extends TextElement
     protected function displayContent()
     {
         $content = '<div class="'.$this->elementinfo['class'].'">';
-        if (isset($this->content)) $content .= '<div class="'.$this->messageclass.'">'.$this->content.'</div>';
+        if (isset($this->content)) $content .= '<div class="'.$this->messageclass.'" data-page="'.$this->response['page'].'">'.$this->content.'</div>';
         $content .= '</div>';
         return $content;
     }

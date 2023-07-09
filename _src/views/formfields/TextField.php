@@ -9,8 +9,8 @@ class TextField extends BaseInputField
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct($fieldname, $fieldinfo)
+    public function __construct(string $fieldname, array $fieldinfo, string $language)
     {
-        parent::__construct($fieldname, $fieldinfo, "text");
+        parent::__construct($fieldname, $fieldinfo, $language, "text");
     }
 }

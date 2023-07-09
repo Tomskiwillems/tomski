@@ -10,9 +10,9 @@ class CheckboxField extends BaseMultipleChoiceField
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(string $fieldname, array $fieldinfo)
+    public function __construct(string $fieldname, array $fieldinfo, string $language)
     {
-        parent::__construct($fieldname, $fieldinfo);
+        parent::__construct($fieldname, $fieldinfo, $language);
         $this->value = [];
     }
 

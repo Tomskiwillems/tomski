@@ -17,7 +17,7 @@ class FormFieldFactory
         foreach ($forminfo as $fieldname => $fieldinfo)
         {
             $class = '\tomski\_src\views\formfields\\'.$fieldinfo['type'].'Field';
-            $formfield = new $class($fieldname, $fieldinfo);
+            $formfield = new $class($fieldname, $fieldinfo, $_SESSION['language']);
             $collection[$fieldname] = $formfield;
         }
         return $collection;

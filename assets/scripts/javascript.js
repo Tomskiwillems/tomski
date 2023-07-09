@@ -112,7 +112,7 @@ const clickMenuItem = (e) =>
     else if (menu == 'mainmenulist') {target = '.pagecontent'}
     else {target = 'body'};
     let url = 'index.php?page=' + page + '&action=Ajax&func=NewPage&target=' + target;
-    ajaxGet(url, 'json', callback_success, callback_fail, e);
+    ajaxGet(url, 'json', callback_success, callback_fail);
 }
 
 //  =============================================
@@ -123,7 +123,7 @@ const clickSubmit = (e) =>
     let data = new FormData(form);
     let page = data.get('page');
     let url = 'index.php?page=' + page + '&action=Ajax&func=NewPage&target=body';
-    ajaxPost(url, data, 'json', callback_success, callback_fail, e);
+    ajaxPost(url, data, 'json', callback_success, callback_fail);
 }
 
 //  =============================================
@@ -152,7 +152,7 @@ const clickDropdownOption = (e) =>
     let href = window.location.href;
     let language = e.target.closest('.dropdown-option').getAttribute('value');
     let url = href + '&action=Ajax&func=NewPage&language=' + language;
-    ajaxGet(url, 'json', callback_success, callback_fail, e);
+    ajaxGet(url, 'json', callback_success, callback_fail);
 }
 
 //  =============================================
@@ -162,7 +162,7 @@ const clickFolder = (e) =>
     let folder = e.target.getAttribute('data-folder');
     let page = e.target.getAttribute('data-page');
     let url = 'index.php?page=' + page + '&folder=' + folder + '&action=Ajax&func=NewPage&target=.subpagecontent';
-    ajaxGet(url, 'json', callback_success, callback_fail, e);
+    ajaxGet(url, 'json', callback_success, callback_fail);
 }
 
 //  =============================================
@@ -172,7 +172,7 @@ const clickFile = (e) =>
     let file = e.target.getAttribute('data-file');
     let page = e.target.getAttribute('data-page');
     let url = 'index.php?page=' + page + '&file=' + file + '&action=Ajax&func=NewPage&target=.subpagecontent';
-    ajaxGet(url, 'json', callback_success, callback_fail, e);
+    ajaxGet(url, 'json', callback_success, callback_fail);
 }
 
 //  =============================================
@@ -192,7 +192,7 @@ const textareaAdjust = (e) =>
 
 //  =============================================
 
-const callback_success = (data, url, e) =>
+const callback_success = (data, url) =>
 {
     for (i = 0; i < data.length; i++)
     {
@@ -205,7 +205,16 @@ const callback_success = (data, url, e) =>
             document.querySelector(data[i].target).outerHTML = data[i].content;
         }
     }
-    history.pushState('', '', url.split('&action')[0]);
+    if (document.querySelector('.message'))
+    {
+        let page = document.querySelector('.message').getAttribute("data-page");
+        let new_url = url.split('page=')[0] + 'page=' + page;
+        history.pushState('', '', new_url);
+    }
+    else
+    {
+        history.pushState('', '', url.split('&action')[0]);
+    }
     addJavaToDocument();
 }
 
@@ -218,7 +227,7 @@ const callback_fail = (error) =>
 
 //  =============================================
 
-async function ajaxGet(url, responsetype, callback_succes, callback_fail, e)
+async function ajaxGet(url, responsetype, callback_succes, callback_fail)
 {
     let response = await fetch(
         url, 
@@ -242,7 +251,7 @@ async function ajaxGet(url, responsetype, callback_succes, callback_fail, e)
             default:
                 result = await response.text();
         }
-        callback_succes(result, url, e);
+        callback_succes(result, url);
     } 
     else
     {
@@ -253,7 +262,7 @@ async function ajaxGet(url, responsetype, callback_succes, callback_fail, e)
 
 //  =============================================
 
-async function ajaxPost(url, data, responsetype, callback_succes, callback_fail, e)
+async function ajaxPost(url, data, responsetype, callback_succes, callback_fail)
 {
     let response = await fetch(
         url,
@@ -279,7 +288,7 @@ async function ajaxPost(url, data, responsetype, callback_succes, callback_fail,
             default:
                 result = await response.text();
         }   
-        callback_succes(result, url, e);
+        callback_succes(result, url);
     } 
     else
     {

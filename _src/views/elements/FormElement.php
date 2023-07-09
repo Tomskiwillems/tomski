@@ -6,6 +6,7 @@ class FormElement extends BaseElement
 {
     protected $formfields;
     protected $options;
+    protected $submitcaption;
 
 //  =============================================
 //  PROTECTED METHODS
@@ -23,6 +24,8 @@ class FormElement extends BaseElement
             $this->formfields = $formfieldfactory->getFormfields($this->elementinfo['id'], $this->language);
             if ($this->formfields == false) return false;
         }
+        $textdatamodel = new \tomski\_src\data_access\datamodels\TextDatamodel;
+        $this->submitcaption = $textdatamodel->getTextByElementID($this->elementinfo['id'], $this->language);
         return true;
     }
 
@@ -49,9 +52,9 @@ class FormElement extends BaseElement
 
 //  =============================================
 
-    private function closeForm($submit_caption = "Submit")
+    private function closeForm()
     {
-        return '<button type="button" class="submit">' . $submit_caption . '</button>' . PHP_EOL
+        return '<button type="button" class="submit">' . $this->submitcaption . '</button>' . PHP_EOL
             . '	</form></div>' . PHP_EOL;
     }
 

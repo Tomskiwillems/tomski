@@ -10,9 +10,9 @@ abstract class BaseMultipleChoiceField extends BaseField implements \tomski\_src
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(string $fieldname, array $fieldinfo)
+    public function __construct(string $fieldname, array $fieldinfo, string $language)
     {
-        parent::__construct($fieldname, $fieldinfo);
+        parent::__construct($fieldname, $fieldinfo, $language);
     }
 
 //  =============================================

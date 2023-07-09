@@ -7,6 +7,7 @@ abstract class BaseField implements \tomski\_src\interfaces\iFormField, \tomski\
     protected $output = '';
     protected $fieldname;
     protected $fieldinfo;
+    protected $language;
     protected $errormessage;
     protected $value;
     protected $default = '';
@@ -15,10 +16,11 @@ abstract class BaseField implements \tomski\_src\interfaces\iFormField, \tomski\
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(string $fieldname, array $fieldinfo)
+    public function __construct(string $fieldname, array $fieldinfo, string $language)
     {
         $this->fieldname = $fieldname;
         $this->fieldinfo = $fieldinfo;
+        $this->language = $language;
         if (isset($this->fieldinfo['default'])) $this->default = $this->fieldinfo['default'];
     }
 
@@ -43,18 +45,18 @@ abstract class BaseField implements \tomski\_src\interfaces\iFormField, \tomski\
         }
         if (is_null($this->value)) // Not found
         {
-            $this->errormessage = $this->fieldname . ' not found.';
+            $this->errormessage = 48;
         }
         elseif ($this->value === false) // Filter failed
         {
-            $this->errormessage = $this->fieldname . ' is invalid.';
+            $this->errormessage = 49;
         }
         else
         {
             if(is_string($this->value)) $this->value = trim($this->value);
             if (empty($this->value) && $this->fieldinfo['optional'] == false)
             {
-                $this->errormessage = $this->fieldname . ' is empty.';
+                $this->errormessage = 47;
             }
             else
             {
@@ -98,7 +100,9 @@ abstract class BaseField implements \tomski\_src\interfaces\iFormField, \tomski\
 
     protected function showError(): string
     {
-        return '<span class="formfielderror">*' . $this->errormessage . '</span><br/>' . PHP_EOL;
+        $textdatamodel = new \tomski\_src\data_access\datamodels\TextDatamodel;
+        $this->errormessage = $textdatamodel->getTextByTextID($this->errormessage, $this->language);
+        return '<span class="formfielderror">*'.$this->fieldinfo['label'].' '.$this->errormessage.'</span><br/>' . PHP_EOL;
     }
 
 //  =============================================

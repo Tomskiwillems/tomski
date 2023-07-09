@@ -10,9 +10,9 @@ class BaseInputField extends BaseField
 //  PUBLIC METHODS
 //  =============================================
 
-    public function __construct(string $fieldname, array $fieldinfo, string $inputtype)
+    public function __construct(string $fieldname, array $fieldinfo, string $language, string $inputtype)
     {
-        parent::__construct($fieldname, $fieldinfo);
+        parent::__construct($fieldname, $fieldinfo, $language);
         $this->inputtype = $inputtype;
     }
 
