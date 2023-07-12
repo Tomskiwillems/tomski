@@ -5,13 +5,15 @@ use Exception;
 
 abstract class BaseController
 {
+    protected $urlparams;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-    public function handleRequest()
+    public function handleRequest($urlparams=[])
     {
+        $this->urlparams = $urlparams;
         try
         {
             ob_start();

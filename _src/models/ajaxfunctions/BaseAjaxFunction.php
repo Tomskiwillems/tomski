@@ -5,13 +5,15 @@ namespace tomski\_src\models\ajaxfunctions;
 abstract class BaseAjaxFunction implements \tomski\_src\interfaces\iAjaxFunction
 {
     protected $data;
+    protected $urlparams;
 
 //  =============================================
 //  PUBLIC METHODS
 //  =============================================
 
-    public function execute() : bool
+    public function execute(array $urlparams) : bool
     {
+        $this->urlparams = $urlparams;
         if ($this->getData()) if ($this->sendData()) return true;
         return false;
     }

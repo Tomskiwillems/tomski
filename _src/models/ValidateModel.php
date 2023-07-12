@@ -34,7 +34,7 @@ class ValidateModel
 			{
 				$postresult = $validateformfields->getPostresult();
 				$pagedatamodel = new \tomski\_src\data_access\datamodels\PageDatamodel;
-				$pagename = $pagedatamodel->getPageName($this->request['page'], $_SESSION['language']);
+				$pagename = $pagedatamodel->getPageName($this->request['page'], 'EN');
                 $class = '\\tomski\_src\models\\validates\\Validate'.$pagename;
 				if (class_exists($class))
 				{

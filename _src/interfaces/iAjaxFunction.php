@@ -4,5 +4,5 @@ namespace tomski\_src\interfaces;
 
 interface iAjaxFunction
 {
-    public function execute();
+    public function execute(array $urlparams): bool;
 }

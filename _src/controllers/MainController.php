@@ -5,7 +5,7 @@ use Exception;
 
 class MainController extends BaseController
 {
-    protected $action;
+    protected $class;
 
 //  =============================================
 //  PROTECTED METHODS
@@ -31,31 +31,30 @@ class MainController extends BaseController
 
     private function getRequest()
     {
-        isset($_GET["action"])
-        ? $this->action = $_GET["action"]
-        : $this->action = "Page";
+        $this->urlparams = explode('/', $_SERVER['REQUEST_URI']);
+        $this->class = '\tomski\_src\controllers\\'.$this->urlparams[0].'Controller';
+        if (class_exists($this->class))
+        {
+            array_shift($this->urlparams);
+        }
+        else
+        {
+            $this->class = '\tomski\_src\controllers\PageController';
+        }
     }
 
 //  =============================================
 
     private function performRequest()
     {
-        $class = '\tomski\_src\controllers\\'.$this->action.'Controller';
-        if (class_exists($class))
+        $controller = new $this->class;
+        if ($controller instanceof \tomski\_src\interfaces\iController)
         {
-            $controller = new $class;
-            if ($controller instanceof \tomski\_src\interfaces\iController)
-            {
-                $controller->handleRequest();
-            }
-            else
-            {
-                throw new Exception('Requested Controller '.$class.' is not an instance of iController.');
-            }   
+            $controller->handleRequest($this->urlparams);
         }
         else
         {
-            throw new Exception('Requested Controller '.$class.' is not an existing class.');
-        }
+            //throw new Exception('Requested Controller '.$class.' is not an instance of iController.');
+        }   
     }
 }

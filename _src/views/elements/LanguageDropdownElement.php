@@ -24,14 +24,14 @@ class LanguageDropdownElement extends SelectedDropdownElement
     {
         $content = '<div class="'.$this->elementinfo['class'].'">
         <div class="dropdown-button">
-        <img class="dropdown-languageflag" src="assets/images/languageflags/'.$this->selectedoption.'.png" width="40px" height="30px">
+        <img class="dropdown-languageflag" src="/assets/images/languageflags/'.$this->selectedoption.'.png" width="40px" height="30px">
         <span class="dropdown-languagecode"> '.$this->selectedoption.'</span>
-        <img  class="dropdown-image" src="assets/images/icons/dropdown.png" width="20px" height="20px"></div>
+        <img  class="dropdown-image" src="/assets/images/icons/dropdown.png" width="20px" height="20px"></div>
         <div class="dropdown-content">';
         foreach ($this->content as $value => $name)
         {
             $content .= '<div class="dropdown-option" value="'.$value.'">
-            <img class="dropdown-languageflag" src="assets/images/languageflags/'.$value.'.png" width="40px" height="30px">
+            <img class="dropdown-languageflag" src="/assets/images/languageflags/'.$value.'.png" width="40px" height="30px">
             <span class="dropdown-languagecode">'.$value.'</span></div>';
         }
         $content .= '</div></div>';

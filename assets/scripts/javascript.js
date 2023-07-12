@@ -150,8 +150,20 @@ const clickDropdownButton = (e) =>
 const clickDropdownOption = (e) =>
 {
     let href = window.location.href;
+    let urlparams = new URLSearchParams(window.location.search);
+    let page = urlparams.get('page');
     let language = e.target.closest('.dropdown-option').getAttribute('value');
-    let url = href + '&action=Ajax&func=NewPage&language=' + language;
+    let url;
+    if (page)
+    {
+        url = href + '&action=Ajax&func=NewPage&language=' + language;
+    }
+    else
+    {
+        url = href + '?action=Ajax&func=NewPage&language=' + language;
+    }
+    
+    
     ajaxGet(url, 'json', callback_success, callback_fail);
 }
 
@@ -205,15 +217,20 @@ const callback_success = (data, url) =>
             document.querySelector(data[i].target).outerHTML = data[i].content;
         }
     }
+    let symbol = url.split('action')[0].slice(-1);
     if (document.querySelector('.message'))
     {
         let page = document.querySelector('.message').getAttribute("data-page");
         let new_url = url.split('page=')[0] + 'page=' + page;
         history.pushState('', '', new_url);
     }
-    else
+    else if (symbol == '&')
     {
         history.pushState('', '', url.split('&action')[0]);
+    }
+    else if (symbol == '?')
+    {
+        history.pushState('', '', url.split('?action')[0]);
     }
     addJavaToDocument();
 }

@@ -50,7 +50,7 @@ class HtmlDocument
     protected function headerContent()
     {
         echo '<title>Tomski</title>
-        <link rel="stylesheet" href="assets/stylesheets/stylesheet.css">';
+        <link rel="stylesheet" href="/assets/stylesheets/stylesheet.css">';
     }
 
 //  =============================================
@@ -86,7 +86,7 @@ class HtmlDocument
 
     protected function showScripts()
     {
-        echo '<script src="assets/scripts/javascript.js"></script>';
+        echo '<script src="/assets/scripts/javascript.js"></script>';
     }
 
 //  =============================================

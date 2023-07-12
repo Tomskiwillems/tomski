@@ -36,4 +36,14 @@ class PageDatamodel extends BaseDatamodel
         $result = $this->crud->selectString($query, $params);
         return $result;
     }
+
+//  =============================================
+
+    public function getPageIDByURLParam(string $urlparam, int $parent=0) : string|false
+    {
+        $query = "SELECT id FROM pages WHERE url = ? AND parent = ?";
+        $params = [$urlparam, $parent];
+        $result = $this->crud->selectString($query, $params);
+        return $result;
+    }
 }

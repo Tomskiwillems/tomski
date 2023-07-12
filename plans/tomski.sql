@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 05 jul 2023 om 16:21
+-- Gegenereerd op: 12 jul 2023 om 14:23
 -- Serverversie: 10.4.27-MariaDB
 -- PHP-versie: 8.2.0
 
@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `tomski`
-USE `tomski`;
 --
 
 -- --------------------------------------------------------
@@ -220,76 +219,76 @@ INSERT INTO `element_text` (`element_id`, `text_id`) VALUES
 
 CREATE TABLE `files` (
   `id` int(11) NOT NULL,
-  `folder_id` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL
+  `parent` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `url` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `files`
 --
 
-INSERT INTO `files` (`id`, `folder_id`, `name`) VALUES
-(1, 1, 'index.php'),
-(2, 4, 'AjaxController.php'),
-(3, 4, 'BaseController.php'),
-(4, 4, 'MainController.php'),
-(5, 4, 'PageController.php'),
-(6, 5, 'Crud.php'),
-(7, 6, 'ElementFactory.php'),
-(8, 6, 'FormFieldFactory.php'),
-(9, 7, 'iAjaxFunction.php'),
-(10, 7, 'iContainerElement.php'),
-(11, 7, 'iController.php'),
-(12, 7, 'iElement.php'),
-(13, 7, 'iFormField.php'),
-(14, 7, 'iFormValidate.php'),
-(15, 7, 'iMultipleChoice.php'),
-(16, 7, 'iValidate.php'),
-(17, 8, 'PageModel.php'),
-(18, 8, 'ValidateModel.php'),
-(19, 9, 'Tools.php'),
-(20, 12, 'javascript.js'),
-(21, 13, 'stylesheet.css'),
-(22, 14, 'BaseDatamodel.php'),
-(23, 14, 'ElementDatamodel.php'),
-(24, 14, 'FileDatamodel.php'),
-(25, 14, 'FormDatamodel.php'),
-(26, 14, 'OptionDatamodel.php'),
-(27, 14, 'PageDatamodel.php'),
-(28, 14, 'TextDatamodel.php'),
-(29, 14, 'UserDatamodel.php'),
-(30, 15, 'BaseAjaxFunction.php'),
-(31, 15, 'NewPage.php'),
-(32, 16, 'BaseValidate.php'),
-(33, 16, 'ValidateContact.php'),
-(34, 16, 'ValidateFormFields.php'),
-(35, 16, 'ValidateLogin.php'),
-(36, 16, 'ValidateRegister.php'),
-(37, 17, 'BaseElement.php'),
-(38, 17, 'BaseListElement.php'),
-(39, 17, 'ContainerElement.php'),
-(40, 17, 'DropdownElement.php'),
-(41, 17, 'FileExplorerElement.php'),
-(42, 17, 'FooterElement.php'),
-(43, 17, 'FormElement.php'),
-(44, 17, 'HeaderElement.php'),
-(45, 17, 'HtmlDocument.php'),
-(46, 17, 'LanguageDropdownElement.php'),
-(47, 17, 'LinkListElement.php'),
-(48, 17, 'MenuListElement.php'),
-(49, 17, 'MessageElement.php'),
-(50, 17, 'SelectedDropdownElement.php'),
-(51, 17, 'TextElement.php'),
-(52, 18, 'BaseField.php'),
-(53, 18, 'BaseInputField.php'),
-(54, 18, 'BaseMultipleChoiceField.php'),
-(55, 18, 'CheckboxField.php'),
-(56, 18, 'DropdownField.php'),
-(57, 18, 'EmailField.php'),
-(58, 18, 'NewPasswordField.php'),
-(59, 18, 'PasswordField.php'),
-(60, 18, 'TextareaField.php'),
-(61, 18, 'TextField.php');
+INSERT INTO `files` (`id`, `parent`, `name`, `url`) VALUES
+(1, 1, 'index.php', 'index'),
+(2, 4, 'AjaxController.php', 'ajaxcontroller'),
+(3, 4, 'BaseController.php', 'basecontroller'),
+(4, 4, 'MainController.php', 'maincontroller'),
+(5, 4, 'PageController.php', 'pagecontroller'),
+(6, 5, 'Crud.php', 'crud'),
+(7, 6, 'ElementFactory.php', 'elementfactory'),
+(8, 6, 'FormFieldFactory.php', 'formfieldfactory'),
+(9, 7, 'iAjaxFunction.php', 'iajaxfunction'),
+(10, 7, 'iContainerElement.php', 'icontainerelement'),
+(11, 7, 'iController.php', 'icontroller'),
+(12, 7, 'iElement.php', 'ielement'),
+(13, 7, 'iFormField.php', 'iformfield'),
+(14, 7, 'iFormValidate.php', 'iformvalidate'),
+(15, 7, 'iMultipleChoice.php', 'imultiplechoice'),
+(16, 7, 'iValidate.php', 'ivalidate'),
+(17, 8, 'PageModel.php', 'pagemodel'),
+(18, 8, 'ValidateModel.php', 'validatemodel'),
+(20, 12, 'javascript.js', 'javascript'),
+(21, 13, 'stylesheet.css', 'stylesheet'),
+(22, 14, 'BaseDatamodel.php', 'basedatamodel'),
+(23, 14, 'ElementDatamodel.php', 'elementdatamodel'),
+(24, 14, 'FileDatamodel.php', 'filedatamodel'),
+(25, 14, 'FormDatamodel.php', 'formdatamodel'),
+(26, 14, 'OptionDatamodel.php', 'optiondatamodel'),
+(27, 14, 'PageDatamodel.php', 'pagedatamodel'),
+(28, 14, 'TextDatamodel.php', 'textdatamodel'),
+(29, 14, 'UserDatamodel.php', 'userdatamodel'),
+(30, 15, 'BaseAjaxFunction.php', 'baseajaxfunction'),
+(31, 15, 'NewPage.php', 'newpage'),
+(32, 16, 'BaseValidate.php', 'basevalidate'),
+(33, 16, 'ValidateContact.php', 'validatecontact'),
+(34, 16, 'ValidateFormFields.php', 'validateformfields'),
+(35, 16, 'ValidateLogin.php', 'validatelogin'),
+(36, 16, 'ValidateRegister.php', 'validateregister'),
+(37, 17, 'BaseElement.php', 'baseelement'),
+(38, 17, 'BaseListElement.php', 'baselistelement'),
+(39, 17, 'ContainerElement.php', 'containerelement'),
+(40, 17, 'DropdownElement.php', 'dropdownelement'),
+(41, 17, 'FileExplorerElement.php', 'fileexplorerelement'),
+(42, 17, 'FooterElement.php', 'footerelement'),
+(43, 17, 'FormElement.php', 'formelement'),
+(44, 17, 'HeaderElement.php', 'headerelement'),
+(45, 17, 'HtmlDocument.php', 'htmldocument'),
+(46, 17, 'LanguageDropdownElement.php', 'languagedropdownelement'),
+(47, 17, 'LinkListElement.php', 'linklistelement'),
+(48, 17, 'MenuListElement.php', 'menulistelement'),
+(49, 17, 'MessageElement.php', 'messageelement'),
+(50, 17, 'SelectedDropdownElement.php', 'selecteddropdownelement'),
+(51, 17, 'TextElement.php', 'textelement'),
+(52, 18, 'BaseField.php', 'basefield'),
+(53, 18, 'BaseInputField.php', 'baseinputfield'),
+(54, 18, 'BaseMultipleChoiceField.php', 'basemultiplechoicefield'),
+(55, 18, 'CheckboxField.php', 'checkboxfield'),
+(56, 18, 'DropdownField.php', 'dropdownfield'),
+(57, 18, 'EmailField.php', 'emailfield'),
+(58, 18, 'NewPasswordField.php', 'newpasswordfield'),
+(59, 18, 'PasswordField.php', 'passwordfield'),
+(60, 18, 'TextareaField.php', 'textareafield'),
+(61, 18, 'TextField.php', 'textfield');
 
 -- --------------------------------------------------------
 
@@ -300,32 +299,32 @@ INSERT INTO `files` (`id`, `folder_id`, `name`) VALUES
 CREATE TABLE `folders` (
   `id` int(11) NOT NULL,
   `parent` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL
+  `name` varchar(45) NOT NULL,
+  `url` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `folders`
 --
 
-INSERT INTO `folders` (`id`, `parent`, `name`) VALUES
-(1, 0, 'tomski'),
-(2, 1, '_src'),
-(3, 1, 'assets'),
-(4, 2, 'controllers'),
-(5, 2, 'data_access'),
-(6, 2, 'factories'),
-(7, 2, 'interfaces'),
-(8, 2, 'models'),
-(9, 2, 'tools'),
-(10, 2, 'views'),
-(11, 3, 'images'),
-(12, 3, 'scripts'),
-(13, 3, 'stylesheets'),
-(14, 5, 'datamodels'),
-(15, 8, 'ajaxfunctions'),
-(16, 8, 'validates'),
-(17, 10, 'elements'),
-(18, 10, 'formfields');
+INSERT INTO `folders` (`id`, `parent`, `name`, `url`) VALUES
+(1, 0, 'tomski', 'tomski'),
+(2, 1, '_src', '_src'),
+(3, 1, 'assets', 'assets'),
+(4, 2, 'controllers', 'controllers'),
+(5, 2, 'data_access', 'data-access'),
+(6, 2, 'factories', 'factories'),
+(7, 2, 'interfaces', 'interfaces'),
+(8, 2, 'models', 'models'),
+(10, 2, 'views', 'views'),
+(11, 3, 'images', 'images'),
+(12, 3, 'scripts', 'scripts'),
+(13, 3, 'stylesheets', 'stylesheets'),
+(14, 5, 'datamodels', 'datamodels'),
+(15, 8, 'ajaxfunctions', 'ajaxfunctions'),
+(16, 8, 'validates', 'validates'),
+(17, 10, 'elements', 'elements'),
+(18, 10, 'formfields', 'formfields');
 
 -- --------------------------------------------------------
 
@@ -402,34 +401,35 @@ INSERT INTO `languages` (`id`, `name`) VALUES
 CREATE TABLE `pages` (
   `id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL,
-  `name` int(11) NOT NULL
+  `name` int(11) NOT NULL,
+  `url` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `pages`
 --
 
-INSERT INTO `pages` (`id`, `parent_id`, `name`) VALUES
-(1, 0, 24),
-(2, 0, 25),
-(3, 0, 26),
-(4, 0, 27),
-(5, 0, 28),
-(6, 0, 29),
-(7, 2, 30),
-(8, 2, 31),
-(9, 2, 32),
-(10, 3, 30),
-(11, 3, 33),
-(12, 3, 34),
-(13, 3, 35),
-(14, 4, 30),
-(15, 4, 36),
-(16, 4, 37),
-(17, 5, 30),
-(18, 5, 38),
-(19, 5, 39),
-(20, 5, 40);
+INSERT INTO `pages` (`id`, `parent_id`, `name`, `url`) VALUES
+(1, 0, 24, 'home'),
+(2, 0, 25, 'softwaredevelopment'),
+(3, 0, 26, 'music'),
+(4, 0, 27, 'humor'),
+(5, 0, 28, 'games'),
+(6, 0, 29, 'contact'),
+(7, 2, 30, 'general'),
+(8, 2, 31, 'educom'),
+(9, 2, 32, 'tomski'),
+(10, 3, 30, 'general'),
+(11, 3, 33, 'gunzofboston'),
+(12, 3, 34, 'mysongs'),
+(13, 3, 35, 'mymusic'),
+(14, 4, 30, 'general'),
+(15, 4, 36, 'standupcomedy'),
+(16, 4, 37, 'cartoons'),
+(17, 5, 30, 'general'),
+(18, 5, 38, 'pokemontomski'),
+(19, 5, 39, 'tomvsgiel'),
+(20, 5, 40, 'escaperoom');
 
 -- --------------------------------------------------------
 
@@ -523,7 +523,7 @@ ALTER TABLE `element_text`
 --
 ALTER TABLE `files`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `folder_id` (`folder_id`);
+  ADD KEY `folder_id` (`parent`);
 
 --
 -- Indexen voor tabel `folders`
@@ -625,7 +625,7 @@ ALTER TABLE `element_text`
 -- Beperkingen voor tabel `files`
 --
 ALTER TABLE `files`
-  ADD CONSTRAINT `files_ibfk_1` FOREIGN KEY (`folder_id`) REFERENCES `folders` (`id`);
+  ADD CONSTRAINT `files_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `folders` (`id`);
 
 --
 -- Beperkingen voor tabel `form_formfields`

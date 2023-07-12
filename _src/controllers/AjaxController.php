@@ -5,7 +5,7 @@ use Exception;
 
 class AjaxController extends BaseController implements \tomski\_src\interfaces\iController
 {
-    protected $request;
+    protected $class;
 
 //  =============================================
 //  PROTECTED METHODS
@@ -29,32 +29,31 @@ class AjaxController extends BaseController implements \tomski\_src\interfaces\i
 //  PRIVATE METHODS
 //  =============================================
 
-    private function getRequest(): array
+    private function getRequest()
     {
-        $posted = ($_SERVER['REQUEST_METHOD'] === 'POST');
-        return $this->request = ['func' => \tomski\_src\tools\Tools::getRequestVar('func', false)];
+        $this->class = "\\tomski\_src\models\ajaxfunctions\\".$this->urlparams[0];
+        if (class_exists($this->class))
+        {
+            array_shift($this->urlparams);
+        }
+        else
+        {
+            $this->class = "\\tomski\_src\models\ajaxfunctions\NewPage";
+        }
     }
 
 //  =============================================
 
     private function performRequest()
     {
-        $class = "\\tomski\_src\models\ajaxfunctions\\".$this->request['func'];
-        if (class_exists($class))
+        $ajaxfunction = new $this->class;
+        if ($ajaxfunction instanceof \tomski\_src\interfaces\iAjaxFunction)
         {
-            $ajaxfunction = new $class;
-            if ($ajaxfunction instanceof \tomski\_src\interfaces\iAjaxFunction)
-            {
-                $ajaxfunction->execute();
-            }
-            else
-            {
-                throw new Exception('Requested AjaxFunction '.$class.' is not an instance of iAjaxFunction.');
-            }
+            $ajaxfunction->execute($this->urlparams);
         }
         else
         {
-            throw new Exception('Requested AjaxFunction '.$class.' does not have an existing class.');
+            throw new Exception('Requested AjaxFunction '.$this->class.' is not an instance of iAjaxFunction.');
         }
     }
 }

@@ -32,10 +32,21 @@ class PageController extends BaseController implements \tomski\_src\interfaces\i
 
 	private function getRequest()
 	{
-		$posted = ($_SERVER['REQUEST_METHOD'] === 'POST');
-		$this->request = [	'posted'	=> $posted,
-							'page'  	=> \tomski\_src\tools\Tools::getRequestVar('page', $posted, 1),
-							'id'		=> \tomski\_src\tools\Tools::getRequestVar('id', $posted, 0)];
+		$this->request = $this->urlparams;
+		$this->request['posted'] = ($_SERVER['REQUEST_METHOD'] === 'POST');
+		$pagedatamodel = new \tomski\_src\data_access\datamodels\PageDatamodel;
+		$mainpage = $pagedatamodel->getPageIDByURLParam($this->request[0]);
+		if ($mainpage === false) return $this->request[0] = 1;
+		$subpage = $pagedatamodel->getPageIDByURLParam($this->request[1], $mainpage);
+		if ($subpage)
+		{
+			array_shift($this->request);
+			$this->request[0] = $subpage;
+		}
+		else
+		{
+			$this->request[0] = $mainpage;
+		}
 	}
 
 //  =============================================
